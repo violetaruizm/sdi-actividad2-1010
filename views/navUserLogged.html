@@ -1,0 +1,42 @@
+{% extends "template.html" %} {% block nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/home">Inicio</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01"
+            aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+
+            <li id="sales-menu" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span
+                    class="caret">Ofertas</span>
+            </a>
+                <ul class="dropdown-menu">
+
+                    <li><a href="/sales/list">Mis ofertas</a></li>
+                    <li><a href="/sales/list">Buscar ofertas</a></li>
+                    <li><a href="/sales/list">Nueva oferta</a></li>
+                    <li><a href="/sales/list">Ofertas compradas</a></li>
+                </ul>
+            </li>
+
+
+            <li id="users-menu" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span
+                    class="caret">Usuarios</span>
+            </a>
+                <ul class="dropdown-menu">
+
+                    <li><a href="/user/list">Ver todos</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
