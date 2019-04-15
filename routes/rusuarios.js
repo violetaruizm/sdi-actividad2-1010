@@ -8,11 +8,15 @@ module.exports = function (app, swig,gestorBD) {
 
     app.post('/signup', function (req, res) {
 
-        if(req.body.email==null || req.body.email==""){
+        if(req.body.email===null || req.body.email==="") {
             res.redirect("/signup?mensaje=El email no puede estar vacío");
 
+
         }
-        if(req.body.password==null|| req.body.password=="" ){
+
+
+
+        if(req.body.password===null|| req.body.password==="" ){
             res.redirect("/signup?mensaje=La contraseña no puede estar vacía");
         }
 
