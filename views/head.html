@@ -15,13 +15,30 @@
     </script>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/custom.css" />
-    <script src="/script/languages.js"> </script>
-
 </head>
 <body>
+
 {% block nav %} {% endblock %}
 <div class="container" style="text-align: center">
+
+    <script>
+        var mensaje = getUrlParameter('mensaje');
+        var tipoMensaje = getUrlParameter('tipoMensaje');
+        if ( mensaje != ""){
+            if (tipoMensaje == "" ){
+                tipoMensaje = 'alert-info';
+            }
+            $( ".container" )
+                .append("<div class='alert "+tipoMensaje+"'>"+mensaje+" </div>");
+        }
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' :
+                decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+    </script>
     {% block main %} {% endblock %}
     {% block pagination %} {% endblock %}
 </div>
