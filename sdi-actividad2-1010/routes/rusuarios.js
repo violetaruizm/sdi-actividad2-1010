@@ -78,10 +78,12 @@ module.exports = function (app, swig, gestorBD) {
         var seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
 
+
         var criterio = {
             email: req.body.email,
             password: seguro
         }
+
         gestorBD.obtenerUsuarios(criterio, function (usuarios) {
             if (usuarios == null || usuarios.length == 0) {
                 req.session.usuario = null;
@@ -90,10 +92,12 @@ module.exports = function (app, swig, gestorBD) {
                     "&tipoMensaje=alert-danger ");
             } else {
 
+                req.session.usuario = usuarios[0];
                 if (usuarios[0].rol == "rol_estandar") {
 
                     res.redirect("/home");
                 } else {
+
                     res.redirect("/homeAdmin");
 
                 }
@@ -101,17 +105,21 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
-    app.get("/home",function (req, res) {
-        var respuesta = swig.renderFile('views/homeStandard.html',{});
+    app.get("/home", function (req, res) {
+
+        var respuesta = swig.renderFile('views/homeStandard.html', { user: req.session.usuario});
         res.send(respuesta);
     });
 
-    app.get("/homeAdmin",function (req, res) {
-        var respuesta = swig.renderFile('views/homeAdmin.html',{});
+    app.get("/homeAdmin", function (req, res) {
+        console.log(req.session);
+        var respuesta = swig.renderFile('views/homeAdmin.html', {
+            user: req.session.usuario
+        });
         res.send(respuesta);
     });
 
-    app.get("/logout",function (req, res) {
+    app.get("/logout", function (req, res) {
         var respuesta = swig.renderFile('views/logIn.html', {});
         res.send(respuesta);
     });
