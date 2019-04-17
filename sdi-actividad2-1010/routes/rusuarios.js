@@ -43,7 +43,8 @@ module.exports = function (app, swig, gestorBD) {
             name: req.body.name,
             surname: req.body.surname,
             money: 100,
-            rol: "rol_estandar"
+            rol: "rol_estandar",
+            valid: true
         }
 
         var criterio = {
@@ -106,17 +107,33 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/home", function (req, res) {
+        if (req.session.usuario === null) {
 
-        var respuesta = swig.renderFile('views/homeStandard.html', {user: req.session.usuario});
-        res.send(respuesta);
+            res.redirect("/login");
+        }
+        if (req.session.usuario.rol != "rol_estandar") {
+            res.redirect(("/homeAdmin?mensaje=No puede acceder a esa parte de la web"))
+
+        } else {
+
+            var respuesta = swig.renderFile('views/homeStandard.html', {user: req.session.usuario});
+            res.send(respuesta);
+        }
     });
 
     app.get("/homeAdmin", function (req, res) {
-        console.log(req.session);
-        var respuesta = swig.renderFile('views/homeAdmin.html', {
-            user: req.session.usuario
-        });
-        res.send(respuesta);
+        if (req.session.usuario === null) {
+            res.redirect("/login");
+        }
+        if (req.session.usuario.rol != "rol_admin") {
+            res.redirect(("/home?mensaje=No puede acceder a esa parte de la web"))
+
+        } else {
+            var respuesta = swig.renderFile('views/homeAdmin.html', {
+                user: req.session.usuario
+            });
+            res.send(respuesta);
+        }
     });
 
     app.get("/logout", function (req, res) {
@@ -126,13 +143,23 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/user/list", function (req, res) {
-        gestorBD.obtenerUsuarios({}, function (usuarios) {
-            let respuesta = swig.renderFile('views/userList.html', {usersList: usuarios});
-            res.send(respuesta);
-        });
+        if (req.session.usuario === null || req.session.usuario.rol != "rol_admin") {
+            res.redirect("/home?mensaje=No puede acceder a esa parte de la web");
+        } else {
+            gestorBD.obtenerUsuarios({}, function (usuarios) {
+                let respuesta = swig.renderFile('views/userList.html', {usersList: usuarios});
+                res.send(respuesta);
+            })
+        }
+        ;
     });
 
     app.post("/user/delete", function (req, res) {
+
+let criterio = {
+    valid : false
+};
+
 
     });
 };
