@@ -1,16 +1,16 @@
 {% extends "navAdminLoggedIn.html" %}
 {% block main %}
 <div class="container">
-    <h2 >Lista de usuarios</h2>
-    <p >Estos son todos los usuarios en el sistema:</p>
+    <h2>Lista de usuarios</h2>
+    <p>Estos son todos los usuarios en el sistema:</p>
     <div class="table-responsive">
         <form action="/user/delete" method="post">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th >Email</th>
-                    <th >Nombre</th>
-                    <th >Apellidos</th>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
                     <th class="col-md-1"></th>
 
                 </tr>
@@ -18,20 +18,20 @@
                 {% for user in usersList%}
                 <tbody>
                 {% if user.rol !== "rol_admin" && user.valid %}
-                    <td >{{user.email}}</td>
-                    <td >{{user.name}}</td>
-                    <td >{{user.surname}}</td>
-                    <td><input type="checkbox" name="idsUser" th:value={{user._id}} id={{user._id}}/></td>
+                <td>{{user.email}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.surname}}</td>
+                <td>
+                    <input type="checkbox" name="idsUser" value="{{user._id.toString()}}"/>
+                </td>
                 {% endif %}
                 </tr>
                 </tbody>
                 {% endfor %}
             </table>
-            <input type="submit" th:value="Eliminar" name = "delete"/>
+            <input type="submit" value="Eliminar"/>
 
         </form>
     </div>
 </div>
-<footer th:replace="fragments/footer" />
-</body>
 {% endblock %}

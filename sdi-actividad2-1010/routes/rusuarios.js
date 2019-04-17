@@ -155,7 +155,7 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.post("/user/delete", function (req, res) {
-
+console.log(req.body)
 let criterio = {
     valid : false
 };
