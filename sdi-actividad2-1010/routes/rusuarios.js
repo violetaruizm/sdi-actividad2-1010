@@ -107,7 +107,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/home", function (req, res) {
 
-        var respuesta = swig.renderFile('views/homeStandard.html', { user: req.session.usuario});
+        var respuesta = swig.renderFile('views/homeStandard.html', {user: req.session.usuario});
         res.send(respuesta);
     });
 
@@ -121,6 +121,18 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/logout", function (req, res) {
         var respuesta = swig.renderFile('views/logIn.html', {});
+        req.session.usuario = null;
         res.send(respuesta);
+    });
+
+    app.get("/user/list", function (req, res) {
+        gestorBD.obtenerUsuarios({}, function (usuarios) {
+            let respuesta = swig.renderFile('views/userList.html', {usersList: usuarios});
+            res.send(respuesta);
+        });
+    });
+
+    app.post("/user/delete", function (req, res) {
+
     });
 };

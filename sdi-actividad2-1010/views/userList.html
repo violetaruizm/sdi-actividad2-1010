@@ -1,0 +1,37 @@
+{% extends "navAdminLoggedIn.html" %}
+{% block main %}
+<div class="container">
+    <h2 >Lista de usuarios</h2>
+    <p >Estos son todos los usuarios en el sistema:</p>
+    <div class="table-responsive">
+        <form action="/user/delete" method="post">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th >Email</th>
+                    <th >Nombre</th>
+                    <th >Apellidos</th>
+                    <th class="col-md-1"></th>
+
+                </tr>
+                </thead>
+                {% for user in usersList%}
+                <tbody>
+                {% if user.rol !== "rol_admin" %}
+                    <td >{{user.email}}</td>
+                    <td >{{user.name}}</td>
+                    <td >{{user.surname}}</td>
+                    <td><input type="checkbox" name="idsUser" th:value={{user._id}} id={{user._id}}/></td>
+                {% endif %}
+                </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            <input type="submit" th:value="Eliminar" name = "delete"/>
+
+        </form>
+    </div>
+</div>
+<footer th:replace="fragments/footer" />
+</body>
+{% endblock %}
