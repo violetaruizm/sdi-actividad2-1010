@@ -9,24 +9,31 @@
             aria-expanded="false" aria-label="Toggle navigation" style="">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
 
-            <li id="sales-menu" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span
-                    class="caret">Ofertas</span>
-            </a>
-                <ul class="dropdown-menu">s
-                    <li><a href="/sales/list">Mis ofertas</a></li>
-                    <li><a href="/sales/list">Buscar ofertas</a></li>
-                    <li><a href="/sales/list">Nueva oferta</a></li>
-                    <li><a href="/sales/list">Ofertas compradas</a></li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
+
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/sale/new">Publicar oferta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/sale/bought">Ofertas compradas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/sale/own">Ofertas publicadas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/sale/search">Buscar oferta</a>
+                </li>
+
+            </ul>
+
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/logout">Logout</a>
+                </li>
+            </ul>
         </ul>
     </div>
 </nav>
