@@ -1,0 +1,5 @@
+-modulo auxiliar
+function (ruta,parametros,sesion===req.session)
+parametros[rol]=session.rol
+parametros[dinero]=session.dinero
+return renderFile(ruta,parametros);
