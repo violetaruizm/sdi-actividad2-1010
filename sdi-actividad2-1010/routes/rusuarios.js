@@ -20,7 +20,7 @@ module.exports = function (app, swig, gestorBD) {
             res.redirect("/signup?mensaje=La contraseña no puede estar vacía");
         }
 
-       if (req.body.password.length >= 0 && req.body.password.length < 8) {
+        if (req.body.password.length >= 0 && req.body.password.length < 8) {
             res.redirect("/signup?mensaje=La contraseña debe tener más de 8 caracteres");
 
         }
@@ -92,16 +92,21 @@ module.exports = function (app, swig, gestorBD) {
                     "?mensaje=Email o password incorrecto" +
                     "&tipoMensaje=alert-danger ");
             } else {
+                if (usuarios[0].valid) {
+                    req.session.usuario = usuarios[0];
+                    if (usuarios[0].rol == "rol_estandar") {
 
-                req.session.usuario = usuarios[0];
-                if (usuarios[0].rol == "rol_estandar") {
+                        res.redirect("/home");
+                    } else {
 
-                    res.redirect("/home");
-                } else {
+                        res.redirect("/homeAdmin");
 
-                    res.redirect("/homeAdmin");
-
+                    }
                 }
+            }
+        else
+            {
+                res.redirect("/login?mensaje=El email o password no son correctos");
             }
         });
     });
@@ -157,10 +162,10 @@ module.exports = function (app, swig, gestorBD) {
     app.post("/user/delete", function (req, res) {
         var criterio;
 
-        if (typeof(req.body.email) == "object") {
+        if (typeof (req.body.email) == "object") {
             criterio = {email: {$in: req.body.email}};
         }
-        if (typeof(req.body.email) == "string") {
+        if (typeof (req.body.email) == "string") {
             criterio = {email: req.body.email};
         }
         var nuevoCriterio = {valid: false};
@@ -179,7 +184,7 @@ module.exports = function (app, swig, gestorBD) {
                         "?mensaje=Los usuarios se eliminaron correctamente");
                 }
             });
-        }else{
+        } else {
             res.redirect("/user/list");
         }
 

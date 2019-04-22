@@ -1,0 +1,56 @@
+{% extends "navUserLogged.html" %}
+{% block main %}
+<h2>Tus ofertas:</h2>
+<p>Estas son las ofertas que has publicado:</p>
+<div class="table-responsive">
+</div>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th class="col-md-1"></th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for sale in salesList%}
+    {% if sale.valid %}
+    <td>{{sale.title}}</td>
+    <td>{{sale.description}}</td>
+    <td>{{sale.price}}</td>
+
+
+    <td>
+        {% if sale.buyer==null %}
+        <span method="get" text="Disponible">Disponible</span>
+        {% endif %}
+
+{% if sale.buyer!== null %}
+        <span text="Vendida">Vendida</span>
+        {% endif %}
+    </td>
+
+    <td>
+        <form method="get" th:attr="action=${'/sale/delete/' + sale.id}">
+            <input type="submit" value="Eliminar"/>
+        </form>
+
+    </td>
+
+    </tbody>
+    {% endif %}
+    {% endfor %}
+</table>
+
+
+</form>
+
+
+</div>
+</div>
+{% endblock %}

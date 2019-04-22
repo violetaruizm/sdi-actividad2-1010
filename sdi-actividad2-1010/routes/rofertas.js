@@ -40,6 +40,7 @@ module.exports = function (app, swig, gestorBD) {
             res.redirect("/sale/new?mensaje=El precio debe ser mayor que 0€");
         }
         var datePost = new Date();
+
         var oferta = {
             title: req.body.title,
             description: req.body.description,
@@ -59,6 +60,20 @@ module.exports = function (app, swig, gestorBD) {
                 res.redirect("/sale/new?mensaje=La oferta se publicó correctamente");
             }
         });
+    });
+
+    app.get("/sale/own", function (req, res) {
+        if (req.session.usuario === null || req.session.usuario.rol === "rol_admin") {
+            res.redirect("/home?mensaje=No puede acceder a esa parte de la web");
+        } else {
+            var criterio = {owner: req.session.usuario};
+            gestorBD.obtenerOfertas
+            (criterio, function (ofertas) {
+                var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas});
+                res.send(respuesta);
+            })
+        }
+        ;
     })
 
 };
