@@ -17,29 +17,37 @@ module.exports = function (app, swig, gestorBD) {
         if (req.session.usuario == null) {
             res.redirect("/login");
         }
-
-        if (req.title === null || req.title === "") {
+        console.log(req.body.title);
+        if (req.body.title === null || req.body.title === "") {
             res.redirect("/sale/new?mensaje=El título no puede estar vacio");
         }
-        if (req.description === null || req.description === "") {
+        if (req.body.description === null || req.body.description === "") {
             res.redirect("/sale/new?mensaje=La descripción no puede estar vacio");
         }
-        if (req.price === null || req.price === "") {
+        if (req.body.price === null || req.body.price === "") {
             res.redirect("/sale/new?mensaje=El precio no puede estar vacio");
 
         }
 
-        if (req.price <= 0) {
-            res.redirect("/sale/new?mensaje=El precio debe ser mayor que 0€");
+        if (typeof (parseInt(req.body.price)) != "number") {
+
+            res.redirect("/sale/new?mensaje=Introduzca un precio correcto");
         }
 
+        var price = parseInt(req.body.price);
+
+        if (price <= 0) {
+            res.redirect("/sale/new?mensaje=El precio debe ser mayor que 0€");
+        }
+        var datePost = new Date();
         var oferta = {
-            title: req.title,
-            description: req.description,
-            price: req.price,
+            title: req.body.title,
+            description: req.body.description,
+            price: price,
             valid: true,
             owner: req.session.usuario,
-            buyer: null
+            buyer: null,
+            date: datePost
         }
 
         gestorBD.insertarOferta(oferta, function (id) {

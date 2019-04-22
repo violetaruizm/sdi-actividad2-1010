@@ -114,7 +114,7 @@ module.exports = {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('ofertas');
-                collection.insertOne(usuario, function(err, result) {
+                collection.insertOne(oferta, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
