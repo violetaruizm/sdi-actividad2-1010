@@ -20,7 +20,7 @@ module.exports = function (app, swig, gestorBD) {
             res.redirect("/signup?mensaje=La contraseña no puede estar vacía");
         }
 
-        if (req.body.password.length >= 0 && req.body.password.length < 8) {
+       if (req.body.password.length >= 0 && req.body.password.length < 8) {
             res.redirect("/signup?mensaje=La contraseña debe tener más de 8 caracteres");
 
         }
@@ -147,7 +147,7 @@ module.exports = function (app, swig, gestorBD) {
             res.redirect("/home?mensaje=No puede acceder a esa parte de la web");
         } else {
             gestorBD.obtenerUsuarios({}, function (usuarios) {
-                let respuesta = swig.renderFile('views/userList.html', {usersList: usuarios});
+                var respuesta = swig.renderFile('views/userList.html', {usersList: usuarios});
                 res.send(respuesta);
             })
         }
@@ -155,11 +155,34 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.post("/user/delete", function (req, res) {
-console.log(req.body)
-let criterio = {
-    valid : false
-};
+        var criterio;
+
+        if (typeof(req.body.email) == "object") {
+            criterio = {email: {$in: req.body.email}};
+        }
+        if (typeof(req.body.email) == "string") {
+            criterio = {email: req.body.email};
+        }
+        var nuevoCriterio = {valid: false};
+        console.log(req.body.email);
+
+        if (criterio != null) {
+            gestorBD.deleteUsers(criterio, nuevoCriterio, function (usuarios) {
+
+
+                if (usuarios == null || usuarios.length == 0) {
+                    res.redirect("/user/list" +
+                        "?mensaje=Los usuarios no pudieron eliminarse");
+                } else {
+
+                    res.redirect("/user/list" +
+                        "?mensaje=Los usuarios se eliminaron correctamente");
+                }
+            });
+        }else{
+            res.redirect("/user/list");
+        }
 
 
     });
-};
+}

@@ -86,14 +86,15 @@ module.exports = {
         });
     },
 
-    updateElement: function (criterio, criterioactualizado, funcionCallback) {
+   deleteUsers: function (criterio,nuevoCriterio,funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
-                let collection = db.collection('usuarios');
-                collection.updateOne(criterio, {
-                    $set: criterioactualizado
+                var collection = db.collection('usuarios');
+                collection.updateMany(criterio, {
+                    $set: nuevoCriterio
+
                 }, function (err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -105,6 +106,25 @@ module.exports = {
             }
         });
     },
+
+
+    insertarOferta : function(oferta, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('ofertas');
+                collection.insertOne(usuario, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
+    }
 
 
 };
