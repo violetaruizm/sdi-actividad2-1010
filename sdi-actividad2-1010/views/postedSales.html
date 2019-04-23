@@ -30,13 +30,13 @@
         <span method="get" text="Disponible">Disponible</span>
         {% endif %}
 
-{% if sale.buyer!== null %}
+        {% if sale.buyer!== null %}
         <span text="Vendida">Vendida</span>
         {% endif %}
     </td>
 
     <td>
-        <form method="get" th:attr="action=${'/sale/delete/' + sale.id}">
+        <form method="get"  action = "/sale/delete/{{sale._id.toString()}}">
             <input type="submit" value="Eliminar"/>
         </form>
 

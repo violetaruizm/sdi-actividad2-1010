@@ -102,12 +102,12 @@ module.exports = function (app, swig, gestorBD) {
                         res.redirect("/homeAdmin");
 
                     }
+                } else
+                {
+                    res.redirect("/login?mensaje=El email o password no son correctos");
                 }
             }
-        else
-            {
-                res.redirect("/login?mensaje=El email o password no son correctos");
-            }
+
         });
     });
 

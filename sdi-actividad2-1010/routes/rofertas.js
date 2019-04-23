@@ -69,12 +69,33 @@ module.exports = function (app, swig, gestorBD) {
             var criterio = {owner: req.session.usuario};
             gestorBD.obtenerOfertas
             (criterio, function (ofertas) {
+                console.log(ofertas)
                 var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas});
                 res.send(respuesta);
             })
         }
-        ;
-    })
+
+    });
+
+    app.get("/sale/delete/:id", function (req, res) {
+
+        var criterioNuevo = {valid : false};
+        var criterio = { _id : gestorBD.mongo.ObjectID(req.params.id) };
+
+        gestorBD.deleteSale(criterio, criterioNuevo, function (ofertas) {
+
+
+            if (ofertas == null || ofertas.length == 0) {
+                res.redirect("/sale/own" +
+                    "?mensaje=La oferta no pudo eliminarse correctamente");
+            } else {
+
+                res.redirect("/sale/own" +
+                    "?mensaje=La oferta se eliminó correctamente");
+            }
+        });
+
+    });
 
 };
 
