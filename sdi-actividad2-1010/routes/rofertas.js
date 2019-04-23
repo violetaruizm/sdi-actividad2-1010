@@ -48,7 +48,8 @@ module.exports = function (app, swig, gestorBD) {
             valid: true,
             owner: req.session.usuario,
             buyer: null,
-            date: datePost
+            date: datePost,
+            onsale : true
         }
 
         gestorBD.insertarOferta(oferta, function (id) {
