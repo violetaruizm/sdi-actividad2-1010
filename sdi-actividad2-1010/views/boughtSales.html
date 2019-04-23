@@ -1,0 +1,41 @@
+{% extends "navUserLogged.html" %}
+{% block main %}
+    <h2 >Ofertas compradas</h2>
+    <p >Estas son las ofertas que has comprado</p>
+    <div class="table-responsive">
+
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th >Título</th>
+                <th >Descripción</th>
+                <th>Precio</th>
+                <th >Publicada por</th>
+                <th class="col-md-1"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for sale in salesList%}
+            {% if sale.valid %}
+                <td >{{sale.body}}</td>
+                <td>{{sale.description}}</td>
+                <td >{{sale.price}}</td>
+               <td>{{sale.owner.email}}</td>
+
+
+                </form>
+
+
+            </tr>
+            </tbody>
+            {% endif %}
+            {% endfor %}
+        </table>
+
+
+
+    </div>
+</div>
+{% endblock %}

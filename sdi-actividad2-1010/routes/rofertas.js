@@ -97,6 +97,21 @@ module.exports = function (app, swig, gestorBD) {
 
     });
 
+    app.get("/sale/bought", function (req, res) {
+        if (req.session.usuario === null || req.session.usuario.rol === "rol_admin") {
+            res.redirect("/home?mensaje=No puede acceder a esa parte de la web");
+        } else {
+            var criterio = {buyer: req.session.usuario};
+            gestorBD.obtenerOfertas
+            (criterio, function (ofertas) {
+                console.log(ofertas)
+                var respuesta = swig.renderFile('views/boughtSales.html', {salesList: ofertas});
+                res.send(respuesta);
+            })
+        }
+
+    });
+
 };
 
 
