@@ -116,18 +116,14 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/sale/buy/:id", function (req,res){
-
-
-
-        
         var criterio = { _id : gestorBD.mongo.ObjectID(req.params.id) };
         gestorBD.obtenerOfertas
         (criterio, function (ofertas) {
-            if(ofertas==null || ofertas.length==0){
+            if(ofertas == null || ofertas.length==0){
                 res.redirect("/sale/all?mensaje=La compra no pudo completarse");
             }else{
-                console.log(ofertas[0].money);
-                if(ofertas[0].money<= req.session.usuario.money){
+
+                if(ofertas[0].price<= req.session.usuario.money){
                     var nuevoCriterio = {
                         onsale : false,
                         buyer : req.session.usuario
@@ -136,7 +132,7 @@ module.exports = function (app, swig, gestorBD) {
                         email : req.session.usuario.email
                     };
                     var nuevoCriterioComprador = {
-                        money : req.session.usuario.money-ofertas[0].money
+                        money : req.session.usuario.money-ofertas[0].price
                     };
 
                     gestorBD.comprarOferta(criterio,nuevoCriterio,function (ofertas) {
