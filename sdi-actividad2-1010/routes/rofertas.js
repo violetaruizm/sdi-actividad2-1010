@@ -1,12 +1,7 @@
 module.exports = function (app, swig, gestorBD) {
 
     app.get("/sale/new", function (req, res) {
-        if (req.session.usuario == null) {
-            res.redirect("/login");
-        }
-        if (req.session.usuario.rol == "rol_admin") {
-            res.redirect("/homeAdmin?mensaje=No puede acceder a esa parte de la web");
-        }
+
         var respuesta = swig.renderFile('views/newSale.html', {});
         res.send(respuesta);
     });
@@ -14,9 +9,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.post("/sale/new", function (req, res) {
 
-        if (req.session.usuario == null) {
-            res.redirect("/login");
-        }
+
         console.log(req.body.title);
         if (req.body.title === null || req.body.title === "") {
             res.redirect("/sale/new?mensaje=El título no puede estar vacio");
@@ -64,17 +57,15 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/sale/own", function (req, res) {
-        if (req.session.usuario === null || req.session.usuario.rol === "rol_admin") {
-            res.redirect("/home?mensaje=No puede acceder a esa parte de la web");
-        } else {
+
             var criterio = {owner: req.session.usuario};
             gestorBD.obtenerOfertas
             (criterio, function (ofertas) {
                 console.log(ofertas)
                 var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas});
                 res.send(respuesta);
-            })
-        }
+            });
+
 
     });
 
@@ -99,17 +90,86 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/sale/bought", function (req, res) {
-        if (req.session.usuario === null || req.session.usuario.rol === "rol_admin") {
-            res.redirect("/home?mensaje=No puede acceder a esa parte de la web");
-        } else {
+
             var criterio = {buyer: req.session.usuario};
             gestorBD.obtenerOfertas
             (criterio, function (ofertas) {
                 console.log(ofertas)
                 var respuesta = swig.renderFile('views/boughtSales.html', {salesList: ofertas});
                 res.send(respuesta);
+            });
+
+    });
+
+    app.get("/sale/all",function(req,res){
+
+            gestorBD.obtenerOfertas({}, function (ofertas) {
+                var respuesta = swig.renderFile('views/allSales.html', {salesList : ofertas,
+                userEmail : req.session.usuario.email});
+                res.send(respuesta);
             })
-        }
+
+        ;
+
+
+
+    });
+
+    app.get("/sale/buy/:id", function (req,res){
+
+
+
+        
+        var criterio = { _id : gestorBD.mongo.ObjectID(req.params.id) };
+        gestorBD.obtenerOfertas
+        (criterio, function (ofertas) {
+            if(ofertas==null || ofertas.length==0){
+                res.redirect("/sale/all?mensaje=La compra no pudo completarse");
+            }else{
+                console.log(ofertas[0].money);
+                if(ofertas[0].money<= req.session.usuario.money){
+                    var nuevoCriterio = {
+                        onsale : false,
+                        buyer : req.session.usuario
+                    };
+                    var criterioComprador = {
+                        email : req.session.usuario.email
+                    };
+                    var nuevoCriterioComprador = {
+                        money : req.session.usuario.money-ofertas[0].money
+                    };
+
+                    gestorBD.comprarOferta(criterio,nuevoCriterio,function (ofertas) {
+
+
+                        if (ofertas == null || ofertas.length == 0) {
+                            res.redirect("/sale/all" +
+                                "?mensaje=La oferta no pudo comprarse correctamente");
+                        } else {
+
+                            gestorBD.actualizarDinero(criterioComprador,nuevoCriterioComprador, function(usuarios){
+                                if(usuarios == null || usuarios.length==0){
+                                    res.redirect("/sale/all" +
+                                        "?mensaje=La oferta no pudo comprarse correctamente");
+
+                                }else{
+                                    res.redirect("/sale/bought" +
+                                        "?mensaje=La oferta se compró correctamente");
+
+                                }
+                            })
+
+
+                        }});
+
+
+                }else{
+                    res.redirect("/sale/all?mensaje=No tienes suficiente dinero para adquirir esa oferta");
+                }
+            }
+        })
+
+
 
     });
 
