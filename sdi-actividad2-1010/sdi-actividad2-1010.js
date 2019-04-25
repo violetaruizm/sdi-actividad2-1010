@@ -44,7 +44,6 @@ routerUsuarioEstandar.use(function (req, res, next) {
     if (req.session.usuario !== undefined) {
         if (req.session.usuario.rol === "rol_estandar") {
             res.redirect("/home?mensaje=No puede acceder a esa parte de la web")
-
         } else {
             next();
         }
@@ -112,7 +111,6 @@ routerUsuarioToken.use(function (req, res, next) {
     }
 });
 // Aplicar routerUsuarioToken
-app.use('/api/cancion', routerUsuarioToken);
 
 let gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app, mongo);
@@ -130,7 +128,7 @@ app.set('crypto', crypto);
 
 require("./routes/rusuarios.js")(app, swig, gestorBD); // (app,param1, param2, etc)
 require("./routes/rofertas.js")(app, swig, gestorBD); // (app,param1, param2, etc)
-
+require("./routes/rapiusuarios.js")(app, gestorBD);
 
 app.use(function (err, req, res, next) {
     console.log("Error producido: " + err); //we log the error in our db

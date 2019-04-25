@@ -93,6 +93,7 @@ module.exports = function (app, swig, gestorBD) {
                     "&tipoMensaje=alert-danger ");
             } else {
                 if (usuarios[0].valid) {
+
                     req.session.usuario = usuarios[0];
                     if (usuarios[0].rol == "rol_estandar") {
 
