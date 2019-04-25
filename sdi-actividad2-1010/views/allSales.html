@@ -1,53 +1,51 @@
 {% extends "navUserLogged.html" %}
 {% block main %}
-    <h2 >Ofertas</h2>
-    <form class="navbar-form" action="/sale/all">
-        <div class="form-group">
-            <input name="searchText" type="text" class="form-control" size="50"
-                  placeholder="Busca una oferta">
-        </div>
-        <button type="submit" class="btn btn-default" text="Buscar" name=search></button>
-    </form>
+<h2>Ofertas</h2>
+<form class="navbar-form" action="/sale/all">
+    <div class="form-group">
+        <input name="searchText" type="text" class="form-control" size="50"
+               placeholder="Busca una oferta">
+    </div>
+    <button type="submit" class="btn btn-default" text="Buscar" name=search></button>
+</form>
 
 
-    <p>Estas son todas las ofertas disponibles en el sistema</p>
+<p>Estas son todas las ofertas disponibles en el sistema</p>
 
+<div class="table-responsive">
 
+    <table class="table table-hover">
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+        </tr>
 
+        </thead>
+        <tbody>
+        {% for sale in salesList %}
+        {% if sale.valid && sale.owner.valid && sale.onsale &&  userEmail!==sale.owner.email %}
+        <td>{{sale.title}}</td>
+        <td>{{sale.description}}</td>
+        <td>{{sale.price}}</td>
 
+        {% if sale.onsale %}}
+        <td>
+            <form method="get" action="/sale/buy/{{sale._id.toString()}}">
+                <input type="submit" value="Comprar" name="${sale.title}"/>
+            </form>
 
-    <div class="table-responsive">
+        </td>
+        {% endif %}
 
-        <table class="table table-hover">
-            <tr>
-                <th>Título</th>
-                <th >Descripción</th>
-                <th >Precio</th>
-                <th class="col-md-1"></th>
-                <th class="col-md-1"></th>
-                <th class="col-md-1"></th>
-            </tr>
-
-            </thead>
-            <tbody>
-           {% for sale in salesList %}
-           {% if sale.valid && sale.owner.valid && sale.onsale %}
-                <td >{{sale.title}}</td>
-                <td >{{sale.description}}</td>
-                <td >{{sale.price}}</td>
-
-                <td>
-                    <form method="get" action="/sale/buy/{{sale._id}}">
-                        <input  type="submit" th:value="#{sale.buy}" name="${sale.title}"/>
-                    </form>
-
-                </td>
-
-            </tr>
-            </tbody>
-            {% endif %}
-            {% endfor %}
-        </table>
+        </tr>
+        </tbody>
+        {% endif %}
+        {% endfor %}
+    </table>
 
     <div th:replace="fragments/pagination"></div>
 </div>

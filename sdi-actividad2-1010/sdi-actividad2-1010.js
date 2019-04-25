@@ -4,10 +4,10 @@ let express = require("express");
 let app = express();
 
 let rest = require('request');
-app.set('rest',rest);
+app.set('rest', rest);
 
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "POST, GET, DELETE, UPDATE, PUT");
@@ -37,6 +37,49 @@ let mongo = require('mongodb');
 let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// routerUsuarioEstandar
+var routerUsuarioEstandar = express.Router();
+routerUsuarioEstandar.use(function (req, res, next) {
+    if (req.session.usuario !== undefined) {
+        if (req.session.usuario.rol === "rol_estandar") {
+            res.redirect("/home?mensaje=No puede acceder a esa parte de la web")
+
+        } else {
+            next();
+        }
+    } else {
+        res.redirect("/login");
+    }
+});
+app.use("/homeAdmin", routerUsuarioEstandar);
+app.use("/user/list", routerUsuarioEstandar);
+app.use("/user/delete", routerUsuarioEstandar);
+
+
+// routerUsuarioEstandar
+var routerUsuarioAdmin = express.Router();
+routerUsuarioAdmin.use(function (req, res, next) {
+    console.log("routerUsuarioSession");
+    if (req.session.usuario !== undefined) {
+        if (req.session.usuario.rol === "rol_admin") {
+            res.redirect("/homeAdmin?mensaje=No puede acceder a esa parte de la web")
+        } else {
+            next();
+        }
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.use("/sale/all", routerUsuarioAdmin);
+app.use("/sale/bought", routerUsuarioAdmin);
+app.use("/sale/own", routerUsuarioAdmin);
+app.use("/home", routerUsuarioAdmin);
+app.use("/sale/buy/:id", routerUsuarioAdmin);
+app.use("/sale/delete/:id", routerUsuarioAdmin);
+app.use("/sale/new", routerUsuarioAdmin);
+
 
 // routerUsuarioToken
 let routerUsuarioToken = express.Router();
@@ -93,6 +136,20 @@ app.use(function (err, req, res, next) {
     console.log("Error producido: " + err); //we log the error in our db
     if (!res.headersSent) {
         res.status(400);
+        res.redirect("/login");
+    }
+
+
+});
+
+app.get("/", function (req, res) {
+    if (req.session.usuario !== undefined) {
+        if (req.session.usuario.rol === "rol_admin") {
+            res.redirect("/homeAdmin")
+        } else {
+            res.redirect("/home")
+        }
+    } else {
         res.redirect("/login");
     }
 });
