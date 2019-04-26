@@ -19,10 +19,10 @@
             <tbody>
             {% for sale in salesList%}
             {% if sale.valid %}
-                <td >{{sale.body}}</td>
+                <td >{{sale.title}}</td>
                 <td>{{sale.description}}</td>
                 <td >{{sale.price}}</td>
-               <td>{{sale.owner.email}}</td>
+               <td>{{sale.owner}}</td>
 
 
                 </form>

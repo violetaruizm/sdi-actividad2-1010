@@ -93,8 +93,9 @@ module.exports = function (app, swig, gestorBD) {
                     "&tipoMensaje=alert-danger ");
             } else {
                 if (usuarios[0].valid) {
-
-                    req.session.usuario = usuarios[0];
+                    var usuario = usuarios[0];
+                    delete usuario.password;
+                    req.session.usuario = usuario;
                     if (usuarios[0].rol == "rol_estandar") {
 
                         res.redirect("/home");
@@ -103,8 +104,7 @@ module.exports = function (app, swig, gestorBD) {
                         res.redirect("/homeAdmin");
 
                     }
-                } else
-                {
+                } else {
                     res.redirect("/login?mensaje=El email o password no son correctos");
                 }
             }
@@ -115,17 +115,17 @@ module.exports = function (app, swig, gestorBD) {
     app.get("/home", function (req, res) {
 
 
-            var respuesta = swig.renderFile('views/homeStandard.html', {user: req.session.usuario});
-            res.send(respuesta);
+        var respuesta = swig.renderFile('views/homeStandard.html', {user: req.session.usuario});
+        res.send(respuesta);
 
     });
 
     app.get("/homeAdmin", function (req, res) {
 
-            var respuesta = swig.renderFile('views/homeAdmin.html', {
-                user: req.session.usuario
-            });
-            res.send(respuesta);
+        var respuesta = swig.renderFile('views/homeAdmin.html', {
+            user: req.session.usuario
+        });
+        res.send(respuesta);
 
     });
 
@@ -137,10 +137,10 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/user/list", function (req, res) {
 
-            gestorBD.obtenerUsuarios({}, function (usuarios) {
-                var respuesta = swig.renderFile('views/userList.html', {usersList: usuarios});
-                res.send(respuesta);
-            })
+        gestorBD.obtenerUsuarios({}, function (usuarios) {
+            var respuesta = swig.renderFile('views/userList.html', {usersList: usuarios});
+            res.send(respuesta);
+        })
 
         ;
     });

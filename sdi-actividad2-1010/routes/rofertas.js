@@ -39,10 +39,10 @@ module.exports = function (app, swig, gestorBD) {
             description: req.body.description,
             price: price,
             valid: true,
-            owner: req.session.usuario,
+            owner: req.session.usuario.email,
             buyer: null,
             date: datePost,
-            onsale : true
+            onsale: true
         }
 
         gestorBD.insertarOferta(oferta, function (id) {
@@ -58,21 +58,21 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/sale/own", function (req, res) {
 
-            var criterio = {owner: req.session.usuario};
-            gestorBD.obtenerOfertas
-            (criterio, function (ofertas) {
-                console.log(ofertas)
-                var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas});
-                res.send(respuesta);
-            });
+        var criterio = {owner: req.session.usuario.email};
+        gestorBD.obtenerOfertas
+        (criterio, function (ofertas) {
+            console.log(ofertas)
+            var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas});
+            res.send(respuesta);
+        });
 
 
     });
 
     app.get("/sale/delete/:id", function (req, res) {
 
-        var criterioNuevo = {valid : false};
-        var criterio = { _id : gestorBD.mongo.ObjectID(req.params.id) };
+        var criterioNuevo = {valid: false};
+        var criterio = {_id: gestorBD.mongo.ObjectID(req.params.id)};
 
         gestorBD.deleteSale(criterio, criterioNuevo, function (ofertas) {
 
@@ -91,51 +91,62 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/sale/bought", function (req, res) {
 
-            var criterio = {buyer: req.session.usuario};
-            gestorBD.obtenerOfertas
-            (criterio, function (ofertas) {
-                console.log(ofertas)
-                var respuesta = swig.renderFile('views/boughtSales.html', {salesList: ofertas});
-                res.send(respuesta);
-            });
+
+        var criterio = {
+            buyer: req.session.usuario.email,
+            valid: true
+        };
+        gestorBD.obtenerOfertas
+        (criterio, function (ofertas) {
+            console.log(ofertas)
+            var respuesta = swig.renderFile('views/boughtSales.html', {salesList: ofertas});
+            res.send(respuesta);
+        });
 
     });
 
-    app.get("/sale/all",function(req,res){
+    app.get("/sale/all", function (req, res) {
 
-            gestorBD.obtenerOfertas({}, function (ofertas) {
-                var respuesta = swig.renderFile('views/allSales.html', {salesList : ofertas,
-                userEmail : req.session.usuario.email});
-                res.send(respuesta);
-            })
+        gestorBD.obtenerOfertas({
+            valid: true,
+            onsale: true,
+            owner: {
+                $ne: req.session.usuario.email
+            }
+        }, function (ofertas) {
+            var respuesta = swig.renderFile('views/allSales.html', {
+                salesList: ofertas,
+                userEmail: req.session.usuario.email
+            });
+            res.send(respuesta);
+        })
 
         ;
 
 
-
     });
 
-    app.get("/sale/buy/:id", function (req,res){
-        var criterio = { _id : gestorBD.mongo.ObjectID(req.params.id) };
+    app.get("/sale/buy/:id", function (req, res) {
+        var criterio = {_id: gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerOfertas
         (criterio, function (ofertas) {
-            if(ofertas == null || ofertas.length==0){
+            if (ofertas == null || ofertas.length == 0) {
                 res.redirect("/sale/all?mensaje=La compra no pudo completarse");
-            }else{
+            } else {
 
-                if(ofertas[0].price<= req.session.usuario.money){
+                if (ofertas[0].price <= req.session.usuario.money) {
                     var nuevoCriterio = {
-                        onsale : false,
-                        buyer : req.session.usuario
+                        onsale: false,
+                        buyer: req.session.usuario.email
                     };
                     var criterioComprador = {
-                        email : req.session.usuario.email
+                        email: req.session.usuario.email
                     };
                     var nuevoCriterioComprador = {
-                        money : req.session.usuario.money-ofertas[0].price
+                        money: req.session.usuario.money - ofertas[0].price
                     };
 
-                    gestorBD.comprarOferta(criterio,nuevoCriterio,function (ofertas) {
+                    gestorBD.comprarOferta(criterio, nuevoCriterio, function (ofertas) {
 
 
                         if (ofertas == null || ofertas.length == 0) {
@@ -143,12 +154,12 @@ module.exports = function (app, swig, gestorBD) {
                                 "?mensaje=La oferta no pudo comprarse correctamente");
                         } else {
 
-                            gestorBD.actualizarDinero(criterioComprador,nuevoCriterioComprador, function(usuarios){
-                                if(usuarios == null || usuarios.length==0){
+                            gestorBD.actualizarDinero(criterioComprador, nuevoCriterioComprador, function (usuarios) {
+                                if (usuarios == null || usuarios.length == 0) {
                                     res.redirect("/sale/all" +
                                         "?mensaje=La oferta no pudo comprarse correctamente");
 
-                                }else{
+                                } else {
                                     res.redirect("/sale/bought" +
                                         "?mensaje=La oferta se compró correctamente");
 
@@ -156,18 +167,84 @@ module.exports = function (app, swig, gestorBD) {
                             })
 
 
-                        }});
+                        }
+                    });
 
 
-                }else{
+                } else {
                     res.redirect("/sale/all?mensaje=No tienes suficiente dinero para adquirir esa oferta");
                 }
             }
         })
 
 
-
     });
+
+    app.get("/sale/search", function (req, res) {
+        var criterio = {
+            valid: true,
+            onsale: true,
+            owner: {
+                $ne: req.session.usuario.email
+            }
+        };
+        if (req.query.busqueda != null && req.query.busqueda !== "") {
+            criterio = {
+                $and: [{
+                    $or: [
+                        {
+                            description: {
+                                $regex: ".*" + req.query.busqueda + ".*", $options: 'i'
+                            }
+                        },
+                        {
+                            title: {
+                                $regex: ".*" + req.query.busqueda + ".*", $options: 'i'
+                            }
+                        }
+                    ],
+                    valid: true,
+                    onsale: true,
+                    owner: {
+                        $ne: req.session.usuario.email
+                    }
+                }]
+            };
+        }
+        var pg = parseInt(req.query.pg); // Es String !!!
+        if (req.query.pg == null) { // Puede no venir el param
+            pg = 1;
+        }
+
+        gestorBD.obtenerOfertasPg(criterio, pg, function (ofertas, total) {
+            if (ofertas == null) {
+                res.send("Error al listar ");
+            } else {
+                let ultimaPg = total / 5;
+                if (total % 5 > 0) { // Sobran decimales
+                    ultimaPg = ultimaPg + 1;
+                }
+                let paginas = []; // paginas mostrar
+                for (let i = pg - 2; i <= pg + 2; i++) {
+                    if (i > 0 && i <= ultimaPg) {
+                        paginas.push(i);
+                    }
+                }
+                var respuesta = swig.renderFile('views/pagination.html',
+                    {
+
+                        busqueda: req.query.busqueda,
+                        salesList: ofertas,
+                        paginas: paginas,
+                        ultimaPg: ultimaPg,
+                        actual: pg
+                    });
+                //app.get("logger").info('Usuario se ha dirijido a la vista de buscar oferta');
+                res.send(respuesta);
+            }
+        });
+    });
+
 
 };
 

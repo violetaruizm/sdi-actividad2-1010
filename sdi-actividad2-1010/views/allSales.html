@@ -4,10 +4,10 @@
 
 <form class="navbar-form" action="/sale/search">
     <div class="form-group">
-        <input name="searchText" type="text" class="form-control" size="50"
-               placeholder="Busca una oferta">
+        <input name="busqueda" type="text" class="form-control" size="50"
+               placeholder="Buscar por titulo de oferta">
     </div>
-    <button type="submit" class="btn btn-default" text="Buscar" name=search value="Buscar"></button>
+    <button type="submit" id="send" class="btn btn-outline-primary">Buscar</button>
 </form>
 
 
@@ -48,6 +48,6 @@
         {% endfor %}
     </table>
 
-    <div th:replace="fragments/pagination"></div>
+
 </div>
 {% endblock %}

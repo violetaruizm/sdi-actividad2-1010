@@ -78,6 +78,7 @@ app.use("/home", routerUsuarioAdmin);
 app.use("/sale/buy/:id", routerUsuarioAdmin);
 app.use("/sale/delete/:id", routerUsuarioAdmin);
 app.use("/sale/new", routerUsuarioAdmin);
+app.use("/sale/search",routerUsuarioAdmin);
 
 
 // routerUsuarioToken
