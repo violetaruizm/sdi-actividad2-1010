@@ -228,6 +228,24 @@ module.exports = {
                 });
             }
         });
+    },
+
+    enviarMensaje: function(mensaje, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajes');
+                collection.insertOne(mensaje, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
     }
 
 

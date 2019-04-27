@@ -131,6 +131,7 @@ require("./routes/rusuarios.js")(app, swig, gestorBD); // (app,param1, param2, e
 require("./routes/rofertas.js")(app, swig, gestorBD); // (app,param1, param2, etc)
 require("./routes/rapiusuarios.js")(app, gestorBD);
 require("./routes/rapiofertas.js")(app, gestorBD);
+require("./routes/rapimensajes.js")(app, gestorBD);
 
 app.use(function (err, req, res, next) {
     console.log("Error producido: " + err); //we log the error in our db
