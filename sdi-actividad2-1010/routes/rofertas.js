@@ -230,11 +230,13 @@ module.exports = function (app, swig, gestorBD) {
                         paginas.push(i);
                     }
                 }
+                console.log(total);
                 var respuesta = swig.renderFile('views/pagination.html',
                     {
 
                         busqueda: req.query.busqueda,
                         salesList: ofertas,
+                        userEmail : req.session.usuario.email,
                         paginas: paginas,
                         ultimaPg: ultimaPg,
                         actual: pg

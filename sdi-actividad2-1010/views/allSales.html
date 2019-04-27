@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         {% for sale in salesList %}
-        {% if sale.valid && sale.owner.valid && sale.onsale &&  userEmail!==sale.owner.email %}
+        {% if sale.valid &&  sale.onsale &&  userEmail !== sale.owner.email %}
         <td>{{sale.title}}</td>
         <td>{{sale.description}}</td>
         <td>{{sale.price}}</td>
