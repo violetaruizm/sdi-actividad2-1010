@@ -23,6 +23,7 @@ module.exports = function (app, gestorBD) {
                         });
                     } else {
                         var sale = ofertas[0];
+
                         var criterio = {
                             sale: gestorBD.mongo.ObjectID(req.body.idSale),
                             receiver: sale.owner,
@@ -36,6 +37,11 @@ module.exports = function (app, gestorBD) {
                                 false,
                             date:
                                 new Date()
+                        }
+                        //si el recibidor es nulo es que el que está enviando el mensaje es
+                        //el propietario de la oferta
+                        if(usuario === sale.owner){
+                            delete criterio.receiver;
                         }
                         gestorBD.enviarMensaje(criterio, function (id) {
                             if (id === null) {
@@ -86,7 +92,7 @@ module.exports = function (app, gestorBD) {
 
                             sale: gestorBD.mongo.ObjectID(req.params.idSale),
                             $and: [{$or: [{sender: usuario}, {receiver: usuario}]},
-                                {$or: [{sender: oferta[0].owner}, {receiver: oferta[0].owner}]}
+                                {$or: [{sender: oferta[0].owner}, {receiver: null}]}
 
                     ]
 
