@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4f42bfd-e1df-4d67-a377-2503b325086d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/rapimensajes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapimensajes.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
@@ -19,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="108" column="73" lean-forward="true" selection-start-line="108" selection-start-column="73" selection-end-line="108" selection-end-column="73" />
+            <state relative-caret-position="237">
+              <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -42,7 +43,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1564">
+            <state relative-caret-position="228">
               <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
             </state>
           </provider>
@@ -51,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4267">
-              <caret line="270" column="2" selection-start-line="270" selection-start-column="2" selection-end-line="270" selection-end-column="2" />
+            <state relative-caret-position="271">
+              <caret line="269" column="22" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -180,12 +181,12 @@
       <workItem from="1556379580753" duration="3992000" />
       <workItem from="1556528610726" duration="26000" />
       <workItem from="1556528711911" duration="5686000" />
-      <workItem from="1556640348535" duration="3589000" />
+      <workItem from="1556640348535" duration="4331000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27395000" />
+    <option name="totallyTimeSpent" value="28137000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -248,7 +249,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="160" column="3" selection-start-line="160" selection-start-column="3" selection-end-line="160" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -304,26 +304,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
           <caret line="213" column="57" lean-forward="true" selection-start-line="213" selection-start-column="42" selection-end-line="213" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4267">
-          <caret line="270" column="2" selection-start-line="270" selection-start-column="2" selection-end-line="270" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/rapiusuarios.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -332,10 +324,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="269" column="22" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="108" column="73" lean-forward="true" selection-start-line="108" selection-start-column="73" selection-end-line="108" selection-end-column="73" />
+        <state relative-caret-position="237">
+          <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
         </state>
       </provider>
     </entry>

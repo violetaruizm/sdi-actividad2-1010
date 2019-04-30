@@ -131,7 +131,26 @@ module.exports = function (app, gestorBD) {
 
             }
 
-        })
+        }),
+
+            app.get("/api/message/read/:id", function (req, res) {
+
+                var criterio = {
+                    _id: gestorBD.mongo.ObjectID(req.params.id),
+                    read: true
+                }
+                gestorBD.marcarMensajeLeido(criterio, function (mensajes) {
+                    if (mensajes === null || mensajes.length===0) {
+                        res.status(500);
+                        res.json({
+                            error: "No se pudo marcar como leído el mensaje"
+                        })
+                    } else {
+                        res.status(200);
+                        res.send(JSON.stringify(mensajes));
+                    }
+                })
+            })
 
     })
 }
