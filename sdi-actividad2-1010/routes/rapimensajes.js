@@ -26,7 +26,7 @@ module.exports = function (app, gestorBD) {
 
                         var criterio = {
                             sale: gestorBD.mongo.ObjectID(req.body.idSale),
-                            receiver: sale.owner,
+                            receiver: req.body.receiver,
                             sender:
                             usuario,
                             message:
@@ -38,11 +38,10 @@ module.exports = function (app, gestorBD) {
                             date:
                                 new Date()
                         }
+
                         //si el recibidor es nulo es que el que está enviando el mensaje es
                         //el propietario de la oferta
-                        if(usuario === sale.owner){
-                            delete criterio.receiver;
-                        }
+
                         gestorBD.enviarMensaje(criterio, function (id) {
                             if (id === null) {
 
@@ -65,7 +64,7 @@ module.exports = function (app, gestorBD) {
     });
 
     // ver la conversación para el usuario que no es dueño de la oferta
-    app.get("/api/conversation/:idSale", function (req, res) {
+    app.post("/api/conversation/:idSale", function (req, res) {
 
         var token = req.headers['token'] || req.body.token || req.query.token;
         app.get('jwt').verify(token, 'secreto', function (err, infoToken) {
@@ -88,15 +87,31 @@ module.exports = function (app, gestorBD) {
                         });
 
                     } else {
-                        var criterio = {
+                        var criterio;
+                        var usuarioReceiver = req.body.usuarioReceiver;
+                        //el usuario no es el dueño de la oferta
+                        if (usuarioReceiver === null) {
+                            criterio = {
 
-                            sale: gestorBD.mongo.ObjectID(req.params.idSale),
-                            $and: [{$or: [{sender: usuario}, {receiver: usuario}]},
-                                {$or: [{sender: oferta[0].owner}, {receiver: null}]}
 
-                    ]
+                                $or: [{$and: [{sender: usuario}, {receiver: oferta[0].owner}, {sale: gestorBD.mongo.ObjectID(req.params.idSale)}]},
+                                    {$and: [{sender: oferta[0].owner}, {receiver: usuario}, {sale: gestorBD.mongo.ObjectID(req.params.idSale)}]}
 
-                    }
+                                ]
+
+                            }
+                        } else {
+                            //el usuario es el dueño de la oferta
+                            criterio = {
+
+
+                                $or: [{$and: [{sender: usuario}, {receiver: usuarioReceiver}, {sale: gestorBD.mongo.ObjectID(req.params.idSale)}]},
+                                    {$and: [{sender: usuarioReceiver}, {receiver: usuario}, {sale: gestorBD.mongo.ObjectID(req.params.idSale)}]}
+
+                                ]
+
+                            }
+                        }
 
                         gestorBD.obtenerConversacion(criterio, function (mensajes) {
                             if (mensajes === null || mensajes.length === 0) {
