@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // routerUsuarioEstandar
-var routerUsuarioEstandar = express.Router();
+let routerUsuarioEstandar = express.Router();
 routerUsuarioEstandar.use(function (req, res, next) {
     if (req.session.usuario !== undefined) {
         if (req.session.usuario.rol === "rol_estandar") {
@@ -57,7 +57,7 @@ app.use("/user/delete", routerUsuarioEstandar);
 
 
 // routerUsuarioEstandar
-var routerUsuarioAdmin = express.Router();
+let routerUsuarioAdmin = express.Router();
 routerUsuarioAdmin.use(function (req, res, next) {
     console.log("routerUsuarioSession");
     if (req.session.usuario !== undefined) {
@@ -78,7 +78,7 @@ app.use("/home", routerUsuarioAdmin);
 app.use("/sale/buy/:id", routerUsuarioAdmin);
 app.use("/sale/delete/:id", routerUsuarioAdmin);
 app.use("/sale/new", routerUsuarioAdmin);
-app.use("/sale/search",routerUsuarioAdmin);
+app.use("/sale/search", routerUsuarioAdmin);
 
 
 // routerUsuarioToken
@@ -112,9 +112,11 @@ routerUsuarioToken.use(function (req, res, next) {
     }
 });
 // Aplicar routerUsuarioToken
-
-app.use("/api/message/delete/:id",routerUsuarioToken);
-app.use("/api/message/read/:id",routerUsuarioToken);
+app.use("/api/sales", routerUsuarioToken);
+app.use("/api/message/send", routerUsuarioToken);
+app.use("/api/conversation/:idSale", routerUsuarioToken);
+app.use("/api/message/delete/:id", routerUsuarioToken);
+app.use("/api/message/read/:id", routerUsuarioToken);
 
 let gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app, mongo);
@@ -142,8 +144,6 @@ app.use(function (err, req, res, next) {
         res.status(400);
         res.redirect("/login");
     }
-
-
 });
 
 app.get("/", function (req, res) {

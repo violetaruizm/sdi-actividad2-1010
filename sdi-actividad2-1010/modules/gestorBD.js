@@ -12,7 +12,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('compras');
+                let collection = db.collection('compras');
                 collection.find(criterio).toArray(function (err, usuarios) {
                     if (err) {
                         funcionCallback(null);
@@ -30,7 +30,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('compras');
+                let collection = db.collection('compras');
                 collection.insertOne(compra, function (err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -50,7 +50,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('usuarios');
+                let collection = db.collection('usuarios');
                 collection.find(criterio).toArray(function (err, usuarios) {
                     if (err) {
                         funcionCallback(null);
@@ -69,7 +69,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('usuarios');
+                let collection = db.collection('usuarios');
                 collection.insertOne(usuario, function (err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -87,7 +87,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('usuarios');
+                let collection = db.collection('usuarios');
                 collection.updateMany(criterio, {
                     $set: nuevoCriterio
 
@@ -109,7 +109,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.insertOne(oferta, function (err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -128,7 +128,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.find(criterio).toArray(function (err, ofertas) {
                     if (err) {
                         funcionCallback(null);
@@ -146,7 +146,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.updateOne(criterio, {
                     $set: nuevoCriterio
 
@@ -167,7 +167,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.updateOne(criterio, {
                     $set: nuevoCriterio
 
@@ -188,7 +188,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('usuarios');
+                let collection = db.collection('usuarios');
                 collection.updateOne(criterio, {
                     $set: nuevoCriterio
 
@@ -210,7 +210,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
+                let collection = db.collection('ofertas');
                 collection.count(criterio, function (err, count) {
                     collection.find(criterio).skip((pg - 1) * 5).limit(5)
                         .toArray(function (err, ofertas) {
@@ -231,7 +231,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('mensajes');
+                let collection = db.collection('mensajes');
                 collection.insertOne(mensaje, function (err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -250,7 +250,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('mensajes');
+                let collection = db.collection('mensajes');
                 collection.find(criterio).toArray(function (err, messages) {
                     if (err) {
                         funcionCallback(null);
@@ -268,7 +268,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('mensajes');
+                let collection = db.collection('mensajes');
                 collection.updateOne(criterio, {
                     $set: {read: true}
 
@@ -288,7 +288,7 @@ module.exports = {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('mensajes');
+                let collection = db.collection('mensajes');
                 collection.deleteMany(criterio, function (err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -300,6 +300,4 @@ module.exports = {
             }
         });
     }
-
-
 };
