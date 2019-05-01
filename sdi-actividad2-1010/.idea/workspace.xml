@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4f42bfd-e1df-4d67-a377-2503b325086d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/rapimensajes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapimensajes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdi-actividad2-1010.js" beforeDir="false" afterPath="$PROJECT_DIR$/sdi-actividad2-1010.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -17,34 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/rapiusuarios.js">
+        <entry file="file://$PROJECT_DIR$/sdi-actividad2-1010.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
+            <state relative-caret-position="-712">
+              <caret line="91" column="68" selection-start-line="91" selection-start-column="68" selection-end-line="91" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -52,8 +31,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="269" column="22" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="22" />
+            <state relative-caret-position="353">
+              <caret line="288" column="38" lean-forward="true" selection-start-line="288" selection-start-column="38" selection-end-line="288" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-358">
+              <caret line="119" column="41" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -88,19 +76,19 @@
         <option value="$PROJECT_DIR$/views/allSales.html" />
         <option value="$PROJECT_DIR$/routes/rofertas.js" />
         <option value="$PROJECT_DIR$/routes/rapiofertas.js" />
-        <option value="$PROJECT_DIR$/sdi-actividad2-1010.js" />
         <option value="$PROJECT_DIR$/views/conversationsOwner.html" />
         <option value="$PROJECT_DIR$/views/chatOwner.html" />
         <option value="$PROJECT_DIR$/views/chatBuyer.html" />
         <option value="$PROJECT_DIR$/modules/gestorBD.js" />
+        <option value="$PROJECT_DIR$/sdi-actividad2-1010.js" />
         <option value="$PROJECT_DIR$/routes/rapimensajes.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+    <option name="x" value="951" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -181,18 +169,19 @@
       <workItem from="1556379580753" duration="3992000" />
       <workItem from="1556528610726" duration="26000" />
       <workItem from="1556528711911" duration="5686000" />
-      <workItem from="1556640348535" duration="4331000" />
+      <workItem from="1556640348535" duration="4781000" />
+      <workItem from="1556718075317" duration="3977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28137000" />
+    <option name="totallyTimeSpent" value="32564000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.019828156" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22207534" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -245,13 +234,6 @@
     <entry file="file://$PROJECT_DIR$/views/allSales.html" />
     <entry file="file://$PROJECT_DIR$/views/boughtSales.html" />
     <entry file="file://$PROJECT_DIR$/views/pagination.html" />
-    <entry file="file://$PROJECT_DIR$/sdi-actividad2-1010.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="160" column="3" selection-start-line="160" selection-start-column="3" selection-end-line="160" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/postedSales.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -307,34 +289,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/routes/rapiusuarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
+        <state relative-caret-position="1564">
           <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rapiusuarios.js">
+    <entry file="file://$PROJECT_DIR$/routes/rapiofertas.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sdi-actividad2-1010.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        <state relative-caret-position="-712">
+          <caret line="91" column="68" selection-start-line="91" selection-start-column="68" selection-end-line="91" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="269" column="22" selection-start-line="269" selection-start-column="3" selection-end-line="269" selection-end-column="22" />
+        <state relative-caret-position="353">
+          <caret line="288" column="38" lean-forward="true" selection-start-line="288" selection-start-column="38" selection-end-line="288" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/rapimensajes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
+        <state relative-caret-position="-358">
+          <caret line="119" column="41" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="41" />
         </state>
       </provider>
     </entry>
