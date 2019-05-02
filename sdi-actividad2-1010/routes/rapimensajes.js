@@ -1,4 +1,5 @@
 module.exports = function (app, gestorBD) {
+
     function getOferta(id, functionCallBack) {
         let sale = {
             _id: gestorBD.mongo.ObjectID(id)

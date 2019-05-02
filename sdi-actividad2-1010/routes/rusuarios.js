@@ -111,6 +111,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/logout", function (req, res) {
         let respuesta = swig.renderFile('views/logIn.html', {});
+
         req.session.usuario = undefined;
         res.send(respuesta);
     });
