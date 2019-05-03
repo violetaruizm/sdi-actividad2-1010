@@ -19,4 +19,26 @@ module.exports = function (app, gestorBD) {
             }
         });
     });
+
+    app.get("/api/propias", function (req, res) {
+        let criterio = {
+            owner:  res.usuario,
+            valid: true,
+
+        };
+        console.log(criterio);
+        gestorBD.obtenerOfertas(criterio, function (ofertas) {
+            if (ofertas == null ) {
+
+                res.status(204); // Unauthorized
+                res.json({
+                    err: "No hay ofertas disponibles"
+                });
+            } else {
+
+                res.status(200);
+                res.send(ofertas);
+            }
+        });
+    });
 };

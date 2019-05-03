@@ -117,6 +117,7 @@ app.use("/api/message/send", routerUsuarioToken);
 app.use("/api/conversation/:idSale", routerUsuarioToken);
 app.use("/api/message/delete/:id", routerUsuarioToken);
 app.use("/api/message/read/:id", routerUsuarioToken);
+app.use("/api/propias", routerUsuarioToken);
 
 let gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app, mongo);

@@ -1,6 +1,7 @@
 package com.uniovi.tests;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.*;
 import org.junit.runners.MethodSorters;
@@ -24,6 +25,7 @@ public class SdiEntrega21010Tests {
 	// Común a Windows y a MACOSX
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver022);
 	static String URL = "http://localhost:8081";
+	private static final int TIME = 5;
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -152,11 +154,20 @@ public class SdiEntrega21010Tests {
 	 * 
 	 * }
 	 */
+	
+	public void waitForWeb() {
+		try {
+			TimeUnit.SECONDS.sleep(TIME);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// [Prueba1] Registro de Usuario con datos válidos
 	@Test
 	public void testP01() {
 		driver.get("http://localhost:8081/signup");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("nuevousuario@email.com");
@@ -173,13 +184,14 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("repassword")).clear();
 		driver.findElement(By.name("repassword")).sendKeys("12345");
 		driver.findElement(By.xpath("//*[contains(text(),'Registrarse')]")).click();
+		waitForWeb();
 
 		// El usuario pasa a la página de inicio.
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Nuevo usuario registrado')]"));
 		assertTrue(list.size() > 0);
 
 		// Usuario se deconecta
-		// driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		 driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 
 	}
 
@@ -218,6 +230,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP03() {
 		driver.get("http://localhost:8081/signup");
+		waitForWeb();
 
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
@@ -235,6 +248,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("repassword")).clear();
 		driver.findElement(By.name("repassword")).sendKeys("abcdefghijklm");
 		driver.findElement(By.xpath("//*[contains(text(),'Registrarse')]")).click();
+		waitForWeb();
 
 		// El usuario vuelve a la página de registro
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Registrar usuario')]"));
@@ -249,6 +263,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP04() {
 		driver.get("http://localhost:8081/signup");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -260,7 +275,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("123456789");
 		driver.findElement(By.name("repassword")).clear();
 		driver.findElement(By.name("repassword")).sendKeys("123456789");
+		
 		driver.findElement(By.xpath("//*[contains(text(),'Registrarse')]")).click();
+		waitForWeb();
 
 		// El usuario vuelve a la página de registro
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Registrar usuario')]"));
@@ -277,6 +294,7 @@ public class SdiEntrega21010Tests {
 	public void testP05() {
 
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("admin@email.com");
@@ -284,6 +302,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("admin");
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// El usuario pasa a la página de inicio.
 		List<WebElement> list = driver
 				.findElements(By.xpath("//*[contains(text(),'Bienvenidos a la página principal')]"));
@@ -298,6 +317,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP06() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -305,6 +325,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("123456789");
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// El usuario pasa a la página de inicio.
 		List<WebElement> list = driver
 				.findElements(By.xpath("//*[contains(text(),'Bienvenidos a la página principal')]"));
@@ -319,7 +340,9 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP07() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// Todos los campos vacios
 		// El usuario sigue en la página de login
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Identificación de usuario')]"));
@@ -328,6 +351,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// Contraseña vacia
 		// El usuario sigue en la página de login
 		list = driver.findElements(By.xpath("//*[contains(text(),'Identificación de usuario')]"));
@@ -337,7 +361,8 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("123456789");
-		driver.findElement(By.xpath("//*[contains(text(),'Identificación de usuario')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// Usuario vacio
 		// El usuario sigue en la página de login
 		list = driver.findElements(By.xpath("//*[contains(text(),'Identificación de usuario')]"));
@@ -349,6 +374,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP08() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -356,6 +382,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("abcde");
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// El usuario sigue en la página de login
 		// Se muestra el error
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Email o password incorrecto')]"));
@@ -367,6 +394,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP09() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("123@email.com");
@@ -374,6 +402,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("12345");
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// El usuario sigue en la página de login
 		// Se muestra el error
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Email o password incorrecto')]"));
@@ -383,6 +412,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP10() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -390,6 +420,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("123456789");
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		// El usuario pasa a la página de inicio.
 		List<WebElement> list = driver
 				.findElements(By.xpath("//*[contains(text(),'Bienvenidos a la página principal')]"));
@@ -397,6 +428,7 @@ public class SdiEntrega21010Tests {
 
 		// Usuario se deconecta
 		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
+		waitForWeb();
 		// El usuario regresa a la pagina de login
 		list = driver.findElements(By.xpath("//*[contains(text(),'Identificación de usuario')]"));
 		assertTrue(list.size() > 0);
@@ -411,6 +443,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP11() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -422,12 +455,14 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() == 0);
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 
 		// El usuario tiene la opción de desconectarse
 		list = driver.findElements(By.xpath("//*[contains(text(),'Logout')]"));
 		assertTrue(list.size() > 0);
 		// Usuario se deconecta
 		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
+		waitForWeb();
 		// La opción de desconectarse vuelve a no aparecer para el usuario
 		list = driver.findElements(By.xpath("//*[contains(text(),'Logout')]"));
 		assertTrue(list.size() == 0);
@@ -439,6 +474,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP12() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("admin@email.com");
@@ -447,7 +483,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("admin");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		driver.findElement(By.xpath("//*[contains(text(),'Usuarios')]")).click();
+		waitForWeb();
 		// driver.findElement(By.xpath("//*[contains(text(),'Ver usuarios')]")).click();
 
 		// Comprobamos que están todos los 5 usuarios
@@ -473,6 +511,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP13() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("admin@email.com");
@@ -481,7 +520,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("admin");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		driver.findElement(By.xpath("//*[contains(text(),'Usuarios')]")).click();
+		waitForWeb();
 		// driver.findElement(By.xpath("//*[contains(text(),'Ver usuarios')]")).click();
 
 		// Comprobamos que está el primer usuario
@@ -490,9 +531,11 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 		// Lo eliminamos
 		driver.findElement(By.name("idsUser")).click();
+		waitForWeb();
 		// driver.findElement(By.xpath("(.//*[normalize-space(text()) and
 		// normalize-space(.)='User5'])[2]/following::input[2]")).click();
 		driver.findElement(By.name("delete")).click();
+		waitForWeb();
 
 		// Comprobamos que el primer usuario ya no aparece
 		list = driver.findElements(By.xpath("//*[contains(text(),'user1@email.com')]"));
@@ -512,6 +555,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP14() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("admin@email.com");
@@ -520,7 +564,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("admin");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		driver.findElement(By.xpath("//*[contains(text(),'Usuarios')]")).click();
+		waitForWeb();
 		// driver.findElement(By.xpath("//*[contains(text(),'Ver usuarios')]")).click();
 
 		// Comprobamos que está el último usuario
@@ -530,7 +576,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(
 				By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='User5'])[2]/following::input[1]"))
 				.click();
+		waitForWeb();
 		driver.findElement(By.name("delete")).click();
+		waitForWeb();
 
 		// Comprobamos que el primer usuario ya no aparece
 		list = driver.findElements(By.xpath("//*[contains(text(),'user5@email.com')]"));
@@ -550,6 +598,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP15() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("admin@email.com");
@@ -558,7 +607,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("admin");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		driver.findElement(By.xpath("//*[contains(text(),'Usuarios')]")).click();
+		waitForWeb();
 		// driver.findElement(By.xpath("//*[contains(text(),'Ver usuarios')]")).click();
 
 		// Comprobamos que está los 3 usuarios que vamos a borrar
@@ -572,12 +623,16 @@ public class SdiEntrega21010Tests {
 
 		// Eliminamos los tres usuarios
 		driver.findElement(By.name("idsUser")).click();
+		waitForWeb();
 
 		driver.findElement(By.xpath("//*[contains(text(),  'User2')][2]/following::input[1]")).click();
+		waitForWeb();
 
 		driver.findElement(By.xpath("//*[contains(text(),  'User3')][2]/following::input[1]")).click();
+		waitForWeb();
 
 		driver.findElement(By.name("delete")).click();
+		waitForWeb();
 
 		// Comprobamos que ya no están los usuarios
 
@@ -600,6 +655,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP16() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -608,7 +664,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		driver.findElement(By.linkText("Publicar oferta")).click();
+		waitForWeb();
 		// driver.findElement(By.linkText("Nueva oferta")).click();
 		driver.findElement(By.name("title")).click();
 		driver.findElement(By.name("title")).clear();
@@ -620,12 +678,14 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("price")).clear();
 		driver.findElement(By.name("price")).sendKeys("120");
 		driver.findElement(By.name("publicar")).click();
+		waitForWeb();
 
 		// Vamos a la pagina con nuestras ofertas publicadas
 		List<WebElement> list = driver
 				.findElements(By.xpath("//*[contains(text(),'La oferta se publicó correctamente')]"));
 		assertTrue(list.size() > 0);
 		driver.get("http://localhost:8081/sale/own");
+		waitForWeb();
 		// Comprobamos la oferta aparece en el listado.
 		list = driver.findElements(By.xpath("//*[contains(text(),'Nueva oferta')]"));
 		assertTrue(list.size() > 0);
@@ -638,6 +698,7 @@ public class SdiEntrega21010Tests {
 @Test
 	public void testP17() {
 	driver.get("http://localhost:8081/login");
+	waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -646,9 +707,11 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		driver.findElement(By.linkText("Publicar oferta")).click();
 		// Todos los campos vacios
 		driver.findElement(By.name("publicar")).click();
+		waitForWeb();
 		// Seguimos en la página para añadir una oferta
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Nueva oferta:')]"));
 		assertTrue(list.size() > 0);
@@ -661,6 +724,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("price")).clear();
 		driver.findElement(By.name("price")).sendKeys("20");
 		driver.findElement(By.name("publicar")).click();
+		waitForWeb();
 		// Continuamos en la misma página
 		list = driver.findElements(By.xpath("//*[contains(text(),'Nueva oferta:')]"));
 		assertTrue(list.size() > 0);
@@ -671,7 +735,9 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("title")).click();
 		driver.findElement(By.name("title")).clear();
 		driver.findElement(By.name("title")).sendKeys("Nueva oferta");
+		
 		driver.findElement(By.name("publicar")).click();
+		waitForWeb();
 		// Continuamos en la misma página
 		list = driver.findElements(By.xpath("//*[contains(text(),'Nueva oferta:')]"));
 		assertTrue(list.size() > 0);
@@ -682,6 +748,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("price")).clear();
 		driver.findElement(By.name("price")).sendKeys("");
 		driver.findElement(By.name("publicar")).click();
+		waitForWeb();
 		// Continuamos en la misma página
 		list = driver.findElements(By.xpath("//*[contains(text(),'Nueva oferta:')]"));
 		assertTrue(list.size() > 0);
@@ -694,6 +761,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP18() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -702,6 +770,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 
 		driver.findElement(By.linkText("Ofertas publicadas")).click();
 
@@ -728,6 +797,7 @@ public class SdiEntrega21010Tests {
 	@Test
 	public void testP19() {
 		driver.get("http://localhost:8081/login");
+		waitForWeb();
 		driver.findElement(By.name("email")).click();
 		driver.findElement(By.name("email")).clear();
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
@@ -735,8 +805,10 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 		//driver.findElement(By.linkText("Personal")).click();
 		driver.findElement(By.linkText("Ofertas publicadas")).click();
+		waitForWeb();
 
 		// Comprobamos que estamos en la página adecuada
 		List<WebElement> list = driver
@@ -748,7 +820,8 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 
 		// La borramos
-		driver.findElement(By.xpath("//*[contains(text(),  'Vendida')][1]/following::input[1]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),  '')][1]/following::input[1]")).click();
+		waitForWeb();
 
 		// Comprobamos que ya no está
 		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 1a')]"));
@@ -760,55 +833,67 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
+	
+	//[Prueba18] Ir a la lista de ofertas, borrar la última oferta de la lista, comprobar que la lista se actualiza y
+	//que la oferta desaparece
 	@Test
 	public void testP20() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user1@email.com");
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
-		driver.findElement(By.linkText("Personal")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
+		//driver.findElement(By.linkText("Personal")).click();
 		driver.findElement(By.linkText("Ofertas publicadas")).click();
 
 		// Comprobamos que estamos en la página adecuada
 		List<WebElement> list = driver
-				.findElements(By.xpath("//*[contains(text(),'Estas son las ofertas que has publicado')]"));
+				.findElements(By.xpath("//*[contains(text(),'Estas son las ofertas que has publicado:')]"));
 		assertTrue(list.size() > 0);
 
 		// Comprobamos que está la última oferta
 		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 1c')]"));
 		assertTrue(list.size() > 0);
 
-		driver.findElement(By.xpath("//*[contains(text(),  'Sin vender')][1]/following::input[1]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),  'Disponible')][1]/following::input[1]")).click();
+		waitForWeb();
 		// Comprobamos que ya no está
 		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 1c')]"));
 		assertTrue(list.size() == 0);
 		// Mensaje de borrado correcto
-		list = driver.findElements(By.xpath("//*[contains(text(),'La oferta fue borrada correctamente')]"));
+		list = driver.findElements(By.xpath("//*[contains(text(),'La oferta se eliminó correctamente')]"));
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout)]")).click();
 	}
 
+	
+	//[Prueba19] Hacer una búsqueda con el campo vacío y comprobar que se muestra la página que
+	//corresponde con el listado de las ofertas existentes en el sistema
 	@Test
 	public void testP21() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user1@email.com");
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
-		driver.findElement(By.linkText("Ofertas")).click();
-		driver.findElement(By.linkText("Buscar ofertas")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
+		//driver.findElement(By.linkText("Ofertas")).click();
+		driver.findElement(By.linkText("Buscar oferta")).click();
 
 		// Buscamos con el texto vacio
 		driver.findElement(By.name("search")).click();
+		waitForWeb();
 
 		// Comprobamos que está la primera oferta de la página
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 2a')]"));
@@ -818,53 +903,67 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
+	//[Prueba20] Hacer una búsqueda escribiendo en el campo un texto que no exista y comprobar que se
+	//muestra la página que corresponde, con la lista de ofertas vacía.
 	@Test
 	public void testP22() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user1@email.com");
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
-		driver.findElement(By.linkText("Ofertas")).click();
-		driver.findElement(By.linkText("Buscar ofertas")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
+		//driver.findElement(By.linkText("Ofertas")).click();
+		driver.findElement(By.linkText("Buscar oferta")).click();
 
 		driver.findElement(By.name("searchText")).click();
 		driver.findElement(By.name("searchText")).clear();
 		// Buscamos un texto que no existe
 		driver.findElement(By.name("searchText")).sendKeys("12345");
 		driver.findElement(By.name("search")).click();
+		waitForWeb();
 
 		// Comprobamos que no se muestra ninguna oferta
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'12345')]"));
+		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'123456789')]"));
 		assertTrue(list.size() == 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
+	//[Prueba21] Hacer una búsqueda escribiendo en el campo un texto en minúscula o mayúscula y
+	//comprobar que se muestra la página que corresponde, con la lista de ofertas que contengan dicho texto,
+	//independientemente que el título esté almacenado en minúsculas o mayúscula.	
+	//[Prueba22] Sobre una búsqueda determinada (a elección de desarrollador), comprar una oferta que deja
+	//un saldo positivo en el contador del comprobador. Y comprobar que el contador se actualiza
+	//correctamente en la vista del comprador.
 	@Test
 	public void testP23() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user3@email.com");
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("user3@email.com");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 
 		// Comprobamos la cantidad de dinero que tiene el usuario antes de la compra
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'80.95')]"));
 		assertTrue(list.size() > 0);
-		driver.findElement(By.linkText("Ofertas")).click();
-		driver.findElement(By.linkText("Buscar ofertas")).click();
+		//driver.findElement(By.linkText("Ofertas")).click();
+		driver.findElement(By.linkText("Buscar oferta")).click();
+		waitForWeb();
 
 		driver.findElement(By.name("searchText")).click();
 		driver.findElement(By.name("searchText")).clear();
@@ -872,70 +971,87 @@ public class SdiEntrega21010Tests {
 		// Buscamos la oferta 1c
 		driver.findElement(By.name("searchText")).sendKeys("1c");
 		driver.findElement(By.name("search")).click();
+		waitForWeb();
 
 		// La compramos
 		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 1c')][1]/following::input[1]")).click();
+		waitForWeb();
 		// Vamos a la vista del usuario
-		driver.findElement(By.xpath("//*[contains(text(),'Home')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Inicio')]")).click();
+		waitForWeb();
 		// Comprobamos que se ha actualizado su dinero
 		list = driver.findElements(By.xpath("//*[contains(text(),'30.950000000000003')]"));
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 
 	}
 
+	
+	//[Prueba23] Sobre una búsqueda determinada (a elección de desarrollador), comprar una oferta que deja
+	//un saldo 0 en el contador del comprobador. Y comprobar que el contador se actualiza correctamente en
+	//la vista del comprador. 
 	@Test
 	public void testP24() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user1@email.com");
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("12345");
 		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 
 		// Comprobamos la cantidad de dinero que tiene el usuario antes de la compra
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'100.0')]"));
 		assertTrue(list.size() > 0);
-		driver.findElement(By.linkText("Ofertas")).click();
-		driver.findElement(By.linkText("Buscar ofertas")).click();
+		//driver.findElement(By.linkText("Ofertas")).click();
+		driver.findElement(By.linkText("Buscar oferta")).click();
+		waitForWeb();
 		// Buscamos la oferta 2c
 		driver.findElement(By.name("searchText")).click();
 		driver.findElement(By.name("searchText")).clear();
 		driver.findElement(By.name("searchText")).sendKeys("2a");
 		driver.findElement(By.name("search")).click();
+		waitForWeb();
 
 		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 2a')][1]/following::input[1]")).click();
-		driver.findElement(By.linkText("Home")).click();
+		driver.findElement(By.linkText("Inicio")).click();
+		waitForWeb();
 		// Comprobamos que se ha actualizado su dinero
 		list = driver.findElements(By.xpath("//*[contains(text(),'0.0')]"));
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
+	//Prueba24] Sobre una búsqueda determinada (a elección de desarrollador), intentar comprar una oferta
+//	que esté por encima de saldo disponible del comprador. Y comprobar que se muestra el mensaje de
+//	saldo no suficiente.
 	@Test
 	public void testP25() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user3@email.com");
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("user3@email.com");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("12345");
 		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
 
 		// Comprobamos la cantidad de dinero que tiene el usuario antes de la compra
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'80.95')]"));
 		assertTrue(list.size() > 0);
-		driver.findElement(By.linkText("Ofertas")).click();
-		driver.findElement(By.linkText("Buscar ofertas")).click();
+		//driver.findElement(By.linkText("Ofertas")).click();
+		driver.findElement(By.linkText("Buscar oferta")).click();
 
 		// Buscamos la oferta 2a
 		driver.findElement(By.name("searchText")).click();
@@ -945,32 +1061,39 @@ public class SdiEntrega21010Tests {
 
 		// La compramos
 		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 2a')][1]/following::input[1]")).click();
+		waitForWeb();
 		// Comprobamos que sale el mensaje de que no se ha podido comprar la oferta
 		list = driver.findElements(By.xpath("//*[contains(text(),'La compra no pudo completarse')]"));
 		assertTrue(list.size() > 0);
 
 		// Comprobamos que la cantidad de dinero sigue siendo la misma
-		driver.findElement(By.linkText("Home")).click();
+		driver.findElement(By.linkText("Inicio")).click();
+		waitForWeb();
 		list = driver.findElements(By.xpath("//*[contains(text(),'80.95')]"));
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
+//	[Prueba25] Ir a la opción de ofertas compradas del usuario y mostrar la lista. Comprobar que aparecen
+//	las ofertas que deben aparecer
 	@Test
 	public void testP26() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user1@email.com");
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("12345");
 		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
-		driver.findElement(By.linkText("Personal")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
+		//driver.findElement(By.linkText("Personal")).click();
 		driver.findElement(By.linkText("Ofertas compradas")).click();
+		waitForWeb();
 
 		// Comprobamos que está en la página correcta
 		List<WebElement> list = driver
@@ -984,146 +1107,12 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Desconectar')]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
-	@Test
-	public void testP27() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user1@email.com");
-		driver.findElement(By.name("password")).click();
-		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
-		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
+	
 
-		// Página principal
 
-		// Comprobamos algunos elementos en español
-		List<WebElement> list = driver
-				.findElements(By.xpath("//*[contains(text(),'Bienvenidos a la página principal')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'Esta es una zona privada la web')]"));
-		assertTrue(list.size() > 0);
 
-		// Cambiamos el idioma
-		driver.findElement(By.id("btnLanguage")).click();
-		driver.findElement(By.id("btnEnglish")).click();
-
-		// Volvemos a comprobar los mismos mensajes
-		list = driver.findElements(By.xpath("//*[contains(text(),'Welcome to homepage')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'This is a private area of the web')]"));
-		assertTrue(list.size() > 0);
-
-		// Vamos a la vista de las ofertas publicadas
-		driver.findElement(By.linkText("Personal")).click();
-		driver.findElement(By.linkText("Posted sales")).click();
-
-		// Comprobamos algunos mensajes
-		list = driver.findElements(By.xpath("//*[contains(text(),'These are all the sales that you have posted')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'Your sales')]"));
-		assertTrue(list.size() > 0);
-
-		// Cambiamos el idioma a español de nuevo
-		driver.findElement(By.id("btnLanguage")).click();
-		driver.findElement(By.id("btnSpanish")).click();
-		// Volvemos a comprobar los mensajes
-		list = driver.findElements(By.xpath("//*[contains(text(),'Estas son las ofertas que has publicado')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'Tus ofertas')]"));
-		assertTrue(list.size() > 0);
-
-		// Vamos a la página para añadir una oferta nueva
-		driver.findElement(By.linkText("Ofertas")).click();
-		driver.findElement(By.linkText("Nueva oferta")).click();
-		// Comprobamos algunos mensajes
-		list = driver.findElements(By.xpath("//*[contains(text(),'Nueva oferta')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'Titulo de la oferta:')]"));
-		assertTrue(list.size() > 0);
-		// Cambiamos el idioma al inglés
-		driver.findElement(By.id("btnLanguage")).click();
-		driver.findElement(By.id("btnEnglish")).click();
-		// Comprobamos los mensajes de nuevo
-		list = driver.findElements(By.xpath("//*[contains(text(),'New sale')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'Title of the sale:')]"));
-		assertTrue(list.size() > 0);
-
-		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Disconnect')]")).click();
-		// El administrador inicia sesión
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("admin@email.com");
-		driver.findElement(By.name("password")).click();
-		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("admin");
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
-
-		// Vamos a la vista con la lista de usuarios
-		driver.findElement(By.linkText("Gestionar usuarios")).click();
-		driver.findElement(By.linkText("Ver usuarios")).click();
-		// Comprobamos algunos mensajes
-		list = driver.findElements(By.xpath("//*[contains(text(),'Estos son los usuarios que están en el sistema')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'Apellidos')]"));
-		assertTrue(list.size() > 0);
-
-		// Cambiamos el idioma al inglés
-		driver.findElement(By.id("btnLanguage")).click();
-		driver.findElement(By.id("btnEnglish")).click();
-
-		// Comprobamos de nuevo los mensajes
-		list = driver.findElements(By.xpath("//*[contains(text(),'These are the users in the system')]"));
-		assertTrue(list.size() > 0);
-		list = driver.findElements(By.xpath("//*[contains(text(),'Surname')]"));
-		assertTrue(list.size() > 0);
-		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Disconnect')]")).click();
-	}
-
-	@Test
-	public void testP28() {
-		driver.get("http://localhost:8090/login");
-		// Intentamos ir a la lista de usuarios sin autentificar
-		driver.get("http://localhost:8090/user/list");
-		// Comprobamos que volvemos a la página de login
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Identifícate')]"));
-		assertTrue(list.size() > 0);
-
-	}
-
-	@Test
-	public void testP29() {
-		driver.get("http://localhost:8090/login");
-		// Intentamos ir a la lista de ofertas del usuario
-		driver.get("http://localhost:8090/sale/list");
-		// Comprobamos que volvemos a la página de login
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Identifícate')]"));
-		assertTrue(list.size() > 0);
-
-	}
-
-	@Test
-	public void testP30() {
-		driver.get("http://localhost:8090/login");
-		driver.findElement(By.name("username")).click();
-		driver.findElement(By.name("username")).clear();
-		driver.findElement(By.name("username")).sendKeys("user1@email.com");
-		driver.findElement(By.name("password")).click();
-		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
-		// El usuario se autentifica
-		driver.findElement(By.xpath("//*[contains(text(),'Login')]")).click();
-		driver.get("http://localhost:8090/user/list");
-		// Comprobamos que no está permitido
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'HTTP Status 403 – Forbidden')]"));
-		assertTrue(list.size() > 0);
-	}
-
+	
 }

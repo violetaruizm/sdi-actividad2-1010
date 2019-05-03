@@ -1,0 +1,138 @@
+<div id="widget-ofertas">
+
+
+    <button class="btn" onclick="cargarOfertas()">Actualizar</button>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaCuerpo">
+
+        </tbody>
+    </table>
+</div>
+<script>
+    window.history.pushState("", "", "/cliente.html?w=propias");
+    var ofertas;
+
+    function cargarOfertas() {
+        $.ajax({
+            url: URLbase + "/propias",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                ofertas = respuesta;
+                actualizarTabla(ofertas);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function enviarMensaje(idOferta, owner) {
+        Cookies.set('idOferta', idOferta);
+        Cookies.set('owner', owner);
+        $("#contenedor-principal").load("widget-conversacion.html");
+        // $.ajax({
+        //     url: URLbase + "/message/send",
+        //     type: "POST",
+        //     data: {},
+        //     dataType: 'json',
+        //     headers: {"token": token},
+        //     success: function () {
+        //         Cookies.set('idOferta', idOferta);
+        //         Cookies.set('owner', owner);
+        //         $("#contenedor-principal").load("widget-conversacion.html");
+        //     },
+        //     error: function (error) {
+        //         $("#contenedor-principal").load("widget-login.html");
+        //     }
+        // });
+    }
+
+    function actualizarTabla(ofertasMostrar) {
+
+        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        for (let i = 0; i < ofertasMostrar.length; i++) {
+            $("#tablaCuerpo").append(
+                "<tr id=" + ofertasMostrar[i]._id + ">" +
+                "<td>" + ofertasMostrar[i].title + "</td>" +
+                "<td>" + ofertasMostrar[i].description + "</td>" +
+                "<td>" + ofertasMostrar[i].price + "</td>" +
+                "<td>  <button class='btn' onclick='verConversacion(" + ofertasMostrar[i]._id + ", " + ofertasMostrar[i].owner + ")'>Ver conversación</button></td>" +
+                "</tr>");
+
+        }
+    }
+
+    function getMensajesConversacion(res, req, functionCallBack) {
+        let usuario = res.usuario;
+        getOferta(req.params.idSale, function (oferta) {
+            if (oferta === null || oferta.length === 0) {
+                res.status(204); // Unauthorized
+                res.json({
+                    error: "La oferta no existe"
+                });
+            } else {
+                let criterio;
+                let usuarioReceiver = req.body.usuarioReceiver;
+                //el usuario no es el dueño de la oferta
+                if (usuarioReceiver === null) {
+                    criterio = {
+                        $or: [
+                            {
+                                $and: [
+                                    {sender: usuario},
+                                    {receiver: oferta[0].owner},
+                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
+                                ]
+                            },
+                            {
+                                $and: [
+                                    {sender: oferta[0].owner},
+                                    {receiver: usuario},
+                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
+                                ]
+                            }
+                        ]
+                    }
+                } else {
+                    //el usuario es el dueño de la oferta
+                    criterio = {
+                        $or: [
+                            {
+                                $and: [
+                                    {sender: usuario},
+                                    {receiver: usuarioReceiver},
+                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
+                                ]
+                            },
+                            {
+                                $and: [
+                                    {sender: usuarioReceiver},
+                                    {receiver: usuario},
+                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
+                                ]
+                            }
+                        ]
+                    }
+                }
+                functionCallBack(criterio);
+            }
+        })
+    }
+
+
+
+    cargarOfertas();
+
+
+</script>
