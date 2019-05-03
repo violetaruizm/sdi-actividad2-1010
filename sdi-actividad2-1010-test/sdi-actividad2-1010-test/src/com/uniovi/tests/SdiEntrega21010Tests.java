@@ -1109,7 +1109,88 @@ public class SdiEntrega21010Tests {
 		// El usuario se desconecta
 		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
-
+	
+	
+	//[Prueba29] Inicio de sesión con datos válidos.
+	@Test
+	public void testP29() {
+		driver.get("http://localhost:8081/cliente.html?w=login");
+		waitForWeb();
+	    driver.findElement(By.id("email")).click();
+	    driver.findElement(By.id("email")).clear();
+	    driver.findElement(By.id("email")).sendKeys("user1@email.com");
+	    driver.findElement(By.id("password")).click();
+	    driver.findElement(By.id("password")).clear();
+	    driver.findElement(By.id("password")).sendKeys("123456789");
+	    driver.findElement(By.id("boton-login")).click();
+	    waitForWeb();
+	    //Comprobamos que el usuario es redirigido al listado de ofertas 
+	    List<WebElement> list = driver
+				.findElements(By.xpath("//*[contains(text(),'Descripción')]"));
+		assertTrue(list.size() > 0);
+	    
+	}
+	
+//	[Prueba30] Inicio de sesión con datos inválidos (email existente, pero contraseña incorrecta)
+	@Test
+	public void testP30() {
+		driver.get("http://localhost:8081/cliente.html?w=login");
+		waitForWeb();
+	    driver.findElement(By.id("email")).click();
+	    driver.findElement(By.id("email")).clear();
+	    driver.findElement(By.id("email")).sendKeys("user1@email.com");
+	    driver.findElement(By.id("password")).click();
+	    driver.findElement(By.id("password")).clear();
+	    driver.findElement(By.id("password")).sendKeys("dsjkhasdhasb");
+	    driver.findElement(By.id("boton-login")).click();
+	    waitForWeb();
+	    //Comprobamos que se muestra el mensaje de error
+	    List<WebElement> list = driver
+				.findElements(By.xpath("//*[contains(text(),'No se pudo iniciar sesión')]"));
+		assertTrue(list.size() > 0);
+		//Comprobamos que sigue en la página de  login
+		list = driver
+				.findElements(By.xpath("//*[contains(text(),'Email:')]"));
+		assertTrue(list.size() > 0);
+	    
+	}
+	
+//	[Prueba31] Inicio de sesión con datos válidos (campo email o contraseña vacíos).
+	@Test
+	public void testP31() {
+		driver.get("http://localhost:8081/cliente.html?w=login");
+		waitForWeb();
+	    driver.findElement(By.id("email")).click();
+	    driver.findElement(By.id("email")).clear();
+	    driver.findElement(By.id("email")).sendKeys("user1@email.com");
+	    //contraseña vacia
+	    driver.findElement(By.id("boton-login")).click();
+	    waitForWeb();
+	    //Comprobamos que se muestra el mensaje de error
+	    List<WebElement> list = driver
+				.findElements(By.xpath("//*[contains(text(),'No se pudo iniciar sesión')]"));
+		assertTrue(list.size() > 0);
+		//Comprobamos que sigue en la página de  login
+		list = driver
+				.findElements(By.xpath("//*[contains(text(),'Email:')]"));
+		assertTrue(list.size() > 0);
+		driver.findElement(By.id("email")).clear();
+	    driver.findElement(By.id("password")).click();
+	    driver.findElement(By.id("password")).clear();
+	    driver.findElement(By.id("password")).sendKeys("dsjkhasdhasb");
+	    //email vacio
+	    driver.findElement(By.id("boton-login")).click();
+	    waitForWeb();
+	    list = driver
+				.findElements(By.xpath("//*[contains(text(),'No se pudo iniciar sesión')]"));
+		assertTrue(list.size() > 0);
+		list = driver
+				.findElements(By.xpath("//*[contains(text(),'Email:')]"));
+		assertTrue(list.size() > 0);
+	   
+	
+	    
+	}
 	
 
 
