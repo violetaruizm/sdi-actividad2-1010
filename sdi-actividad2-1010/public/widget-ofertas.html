@@ -41,6 +41,7 @@
         Cookies.set('ofertaId', ofertaId);
         ofertaId = ofertaId2;
         owner = owner2;
+        // Usar estas dos vatriables en el body de mandar mensaje, añadir el campo mensaje tambien
         Cookies.set('owner', owner);
         window.history.pushState("", "", "/cliente.html?w=conversacion");
         $("#contenedor-principal").load("widget-conversacion.html");

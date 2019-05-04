@@ -76,7 +76,7 @@ module.exports = function (app, gestorBD) {
                                             });
                                         } else {
                                             res.status(200);
-                                            res.send(JSON.stringify(criterio));
+                                            res.send(JSON.stringify(mensaje));
                                         }
                                     });
 
@@ -106,7 +106,7 @@ module.exports = function (app, gestorBD) {
                                     });
                                 } else {
                                     res.status(200);
-                                    res.send(JSON.stringify(criterio));
+                                    res.send(JSON.stringify(mensaje));
                                 }
                             });
 

@@ -1,4 +1,3 @@
-
 module.exports = function (app, swig, gestorBD) {
     app.get("/admin", function (req, res) {
         let respuesta = swig.renderFile('views/admin.html', {
@@ -25,7 +24,7 @@ module.exports = function (app, swig, gestorBD) {
         let cri = {email: 'admin@email.com'};
         gestorBD.obtenerUsuarios(cri, function (usuarios) {
             if (usuarios != null && usuarios.length !== 0) {
-                res.redirect("/identificarse?mensaje=Admin ya existe" + "&tipoMensaje=alert-danger ");
+                res.redirect("/login?mensaje=Admin ya existe" + "&tipoMensaje=alert-danger ");
             } else {
                 let admin = {
                     name: 'admin',
@@ -53,6 +52,8 @@ module.exports = function (app, swig, gestorBD) {
         const limitUsers = 5;
         const numOffersUser = 3;
         const numMessageUser = 2;
+        const letters = ['a', 'b', 'c'];
+
         for (let i = 1; i <= limitUsers; i++) {
             let password = app.get("crypto").createHmac('sha256',
                 app.get('clave')).update('123456789').digest('hex');
@@ -69,50 +70,84 @@ module.exports = function (app, swig, gestorBD) {
         }
         gestorBD.insertDataTest(listUsers, 'usuarios', function (users) {
             if (users == null || users.length === 0) {
-                res.redirect("/identificarse?mensaje=Error al crear los usuarios de prueba");
+                res.redirect("/login?mensaje=Error al crear los usuarios de prueba");
             } else {
                 const listOffers = [];
+                let j = 1;
                 listUsers.forEach(user => {
+
                     for (let i = 1; i <= numOffersUser; i++) {
                         let offer = {
-                            title: 'Oferta ' + i ,
-                            description:  'Oferta ' + i ,
+                            title: 'Oferta ' + j + letters[i-1],
+                            description: 'Oferta ' + j + letters[i-1],
                             price: i * 5,
                             owner: user.email,
-                            onsale: 'disponible',
-                            buyer: 'none',
+                            onsale: true,
+                            buyer: null,
+                            valid: true,
+                            date: new Date()
 
                         };
                         listOffers.push(offer);
                     }
+                    j++;
                 });
                 gestorBD.insertDataTest(listOffers, 'ofertas', function (offers) {
                     if (offers == null || offers.length === 0) {
-                        res.redirect("/identificarse?mensaje=Error al crear las ofertas de prueba");
+                        res.redirect("/login?mensaje=Error al crear las ofertas de prueba");
                     } else {
-                        const listMessages = [];
+                        const listConversaciones = [];
                         listOffers.forEach(offer => {
                             listUsers.forEach(user => {
                                 if (user.email !== offer.owner) {
                                     for (let i = 1; i <= numMessageUser; i++) {
-                                        let message = {
-                                            sender: user.email,
-                                            receiver: offer.owner,
-                                            offer: offer._id,
-                                            message: 'Mensaje ' + i + 'del usuario ' + user.name,
-                                            date: new Date(),
-                                            read: false
+                                        let conversacion = {
+                                            user1: user.email,
+                                            user2: offer.owner,
+                                            sale: offer._id,
+                                            valid: true
+
                                         };
-                                        listMessages.push(message);
+                                        listConversaciones.push(conversacion);
                                     }
                                 }
                             });
                         });
-                        gestorBD.insertDataTest(listMessages, 'mensajes', function (messages) {
-                            if (messages == null || messages.length === 0) {
-                                res.redirect("/identificarse?mensaje=Error al crear las ofertas de prueba");
+                        gestorBD.insertDataTest(listConversaciones, 'conversaciones', function (conversaciones) {
+                            if (conversaciones == null || conversaciones.length === 0) {
+                                res.redirect("/login?mensaje=Error al crear las ofertas de prueba");
                             } else {
-                                res.redirect("/identificarse?mensaje=Datos creado correctamente");
+
+                                const listMensajes = [];
+
+                                listConversaciones.forEach(conver => {
+
+                                    for (let i = 1; i <= numMessageUser; i++) {
+                                        let mensaje = {
+                                            sale: conver.sale,
+                                            idConver: conver._id,
+                                            sender: conver.user1,
+                                            receiver: conver.user2,
+                                            valid: true,
+                                            read: false,
+                                            message: "abcdefg",
+                                            date: new Date()
+
+                                        };
+                                        listMensajes.push(mensaje);
+                                    }
+
+                                });
+                                gestorBD.insertDataTest(listMensajes, 'mensajes', function (mensajes) {
+                                    if (mensajes === null || mensajes.length === 0) {
+                                        res.redirect("/login?mensaje=Error al crear las ofertas de prueba");
+
+                                    } else {
+                                        res.redirect("/login?mensaje=Datos creado correctamente");
+                                    }
+                                })
+
+
                             }
                         });
                     }

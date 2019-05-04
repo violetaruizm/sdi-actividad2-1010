@@ -376,4 +376,49 @@ module.exports = {
             }
         });
     },
+
+    resetDB: function (funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let conversaciones = db.collection('conversaciones');
+                conversaciones.remove(err, function () {
+                    if (err) {
+                        functionCallback(null);
+                        db.close();
+                    } else {
+
+                        let mensajes = db.collection('mensajes');
+                        mensajes.remove(err, function () {
+                            if (err) {
+                                funcionCallback(null);
+                                db.close();
+                            } else {
+                                let ofertas = db.collection('ofertas');
+                                ofertas.remove(err, function () {
+                                    if (err) {
+                                        funcionCallback(null);
+                                        db.close();
+                                    } else {
+                                        let usuarios = db.collection('usuarios');
+                                        usuarios.remove(err, function (result) {
+                                            if (err) {
+                                                funcionCallback(null);
+                                            } else {
+                                                funcionCallback(true);
+                                            }
+                                        });
+                                        db.close();
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                })
+
+            }
+        });
+    },
 };
