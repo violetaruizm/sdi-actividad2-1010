@@ -189,35 +189,53 @@ module.exports = function (app, gestorBD) {
         });
     });
 
-    app.post("/api/message/delete/:idSale", function (req, res) {
-        getMensajesConversacion(res, req, function (criterio) {
-            gestorBD.deleteConversacion(criterio, function (mensajes) {
-                if (mensajes === null || mensajes.length === 0) {
-                    res.status(204); // Unauthorized
-                    res.json({
-                        error: "No se pudo abrir la conversación"
-                    });
-                } else {
-                    res.send(JSON.stringify(mensajes));
-                }
-            })
-        });
-    });
+    app.get("/api/conversation/delete/:idConversacion", function (req, res) {
 
-    app.get("/api/message/read/:id", function (req, res) {
-        let criterio = {
-            _id: gestorBD.mongo.ObjectID(req.params.id),
-        };
-        gestorBD.marcarMensajeLeido(criterio, function (mensajes) {
-            if (mensajes === null || mensajes.length === 0) {
-                res.status(500);
+        var criterio = {
+            idConver: gestorBD.mongo.ObjectID(req.params.idConversacion)
+        }
+        gestorBD.deleteMensajesConversacion(criterio, function (mensajes) {
+            if (mensajes === null) {
+                res.status(204); // Unauthorized
                 res.json({
-                    error: "No se pudo marcar como leído el mensaje"
-                })
+                    error: "No se pudieron eliminar los mensajes"
+                });
             } else {
-                res.status(200);
-                res.send(JSON.stringify(mensajes));
+
+                gestorBD.deleteConversacion({_id: gestorBD.mongo.ObjectID(req.params.idConversacion)},
+                    function (conversacion) {
+                        if (mensajes === null) {
+                            res.status(204); // Unauthorized
+                            res.json({
+                                error: "No se pudieron eliminar los mensajes"
+                            })
+                        } else {
+                            res.send(JSON.stringify(mensajes));
+                        }
+                    });
             }
         })
-    });
-};
+
+
+
+
+});
+
+app.get("/api/message/read/:id", function (req, res) {
+    let criterio = {
+        _id: gestorBD.mongo.ObjectID(req.params.id),
+    };
+    gestorBD.marcarMensajeLeido(criterio, function (mensajes) {
+        if (mensajes === null || mensajes.length === 0) {
+            res.status(500);
+            res.json({
+                error: "No se pudo marcar como leído el mensaje"
+            })
+        } else {
+            res.status(200);
+            res.send(JSON.stringify(mensajes));
+        }
+    })
+});
+}
+;
