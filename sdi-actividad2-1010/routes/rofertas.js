@@ -2,7 +2,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/sale/new", function (req, res) {
 
-        var respuesta = swig.renderFile('views/newSale.html', {});
+        var respuesta = swig.renderFile('views/newSale.html', { dineroUsuario:req.session.usuario.money});
         res.send(respuesta);
     });
 
@@ -70,7 +70,7 @@ module.exports = function (app, swig, gestorBD) {
         gestorBD.obtenerOfertas
         (criterio, function (ofertas) {
             console.log(ofertas)
-            var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas});
+            var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas, dineroUsuario:req.session.usuario.money});
             app.get('logger').info('Ofertas propias:Se van a mostrar las ofertas');
             res.send(respuesta);
         });
@@ -109,7 +109,7 @@ module.exports = function (app, swig, gestorBD) {
         gestorBD.obtenerOfertas
         (criterio, function (ofertas) {
             console.log(ofertas)
-            var respuesta = swig.renderFile('views/boughtSales.html', {salesList: ofertas});
+            var respuesta = swig.renderFile('views/boughtSales.html', {salesList: ofertas, dineroUsuario:req.session.usuario.money});
             app.get('logger').info('Comprar oferta:La oferta se compró correctamente');
             res.send(respuesta);
         });
@@ -127,7 +127,8 @@ module.exports = function (app, swig, gestorBD) {
         }, function (ofertas) {
             var respuesta = swig.renderFile('views/allSales.html', {
                 salesList: ofertas,
-                userEmail: req.session.usuario.email
+                userEmail: req.session.usuario.email,
+                dineroUsuario:req.session.usuario.money
             });
             app.get('logger').info('Todas las ofertas:se van a mostrar todas las ofertas');
             res.send(respuesta);
@@ -258,7 +259,8 @@ module.exports = function (app, swig, gestorBD) {
                         userEmail: req.session.usuario.email,
                         paginas: paginas,
                         ultimaPg: ultimaPg,
-                        actual: pg
+                        actual: pg,
+                        dineroUsuario:req.session.usuario.money
                     });
                 app.get('logger').info('Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda');
                 res.send(respuesta);

@@ -175,6 +175,8 @@ public class SdiEntrega21010Tests {
 			e.printStackTrace();
 		}
 	}
+	
+	//------------------------PRUEBAS APLICACIÓN WEB----------------------------
 
 	// [Prueba1] Registro de Usuario con datos válidos
 	@Test
@@ -207,40 +209,12 @@ public class SdiEntrega21010Tests {
 
 	}
 
-	//
-	@Test
-	public void testP02() {
-
-		driver.get("http://localhost:8081/signup");
-
-		// Todos los campos vacios
-		driver.findElement(By.xpath("//*[contains(text(),'Registrarse')]")).click();
-		// El usuario sigue en la página de registro
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Registrar usuario')]"));
-		assertTrue(list.size() > 0);
-		driver.findElement(By.name("email")).clear();
-		driver.findElement(By.name("email")).sendKeys("123@email.com");
-		// Todos los campos vacios menos el email
-		// Usuario sigue en página de registro
-		driver.findElement(By.xpath("//*[contains(text(),'Registrar usuario')]")).click();
-		driver.findElement(By.name("name")).click();
-		driver.findElement(By.name("name")).clear();
-		driver.findElement(By.name("name")).sendKeys("Carmen");
-		// Todos los campos vacios menos email y nombre
-		// Usuario sigue en página de registro
-		driver.findElement(By.xpath("//*[contains(text(),'Registrar usuario')]")).click();
-		driver.findElement(By.name("surname")).click();
-		driver.findElement(By.name("surname")).clear();
-		driver.findElement(By.name("surname")).sendKeys("Perez Almonte");
-		// Campos de contraseñas vacios
-		// Usuario sigue en página de registro
-		driver.findElement(By.xpath("//*[contains(text(),'Registrar usuario')]")).click();
-	}
+	
 
 	// [Prueba2] Registro de Usuario con datos inválidos (repetición de contraseña
 	// inválida).
 	@Test
-	public void testP03() {
+	public void testP02() {
 		driver.get("http://localhost:8081/signup");
 		waitForWeb();
 
@@ -273,7 +247,7 @@ public class SdiEntrega21010Tests {
 
 //[Prueba3] Registro de Usuario con email existente
 	@Test
-	public void testP04() {
+	public void testP03() {
 		driver.get("http://localhost:8081/signup");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -303,7 +277,7 @@ public class SdiEntrega21010Tests {
 
 //[Prueba4] Inicio de sesión con datos válidos.
 	@Test
-	public void testP05() {
+	public void testP04Admin() {
 
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
@@ -327,7 +301,7 @@ public class SdiEntrega21010Tests {
 
 //[Prueba4] Inicio de sesión con datos válidos.
 	@Test
-	public void testP06() {
+	public void testP04Estandar() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -346,11 +320,32 @@ public class SdiEntrega21010Tests {
 		// Usuario se deconecta
 		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
+	
+	// [Prueba5] Inicio de sesión con datos inválidos (email existente, pero
+		// contraseña incorrecta)
+		@Test
+		public void testP05() {
+			driver.get("http://localhost:8081/login");
+			waitForWeb();
+			driver.findElement(By.name("email")).click();
+			driver.findElement(By.name("email")).clear();
+			driver.findElement(By.name("email")).sendKeys("user1@email.com");
+			driver.findElement(By.name("password")).click();
+			driver.findElement(By.name("password")).clear();
+			driver.findElement(By.name("password")).sendKeys("abcde");
+			driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+			waitForWeb();
+			// El usuario sigue en la página de login
+			// Se muestra el error
+			List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Email o password incorrecto')]"));
+			assertTrue(list.size() > 0);
+		}
+
 
 	// [Prueba6] Inicio de sesión con datos válidos (campo email o contraseña
 	// vacíos)
 	@Test
-	public void testP07() {
+	public void testP06() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
@@ -381,30 +376,11 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 	}
 
-	// [Prueba5] Inicio de sesión con datos inválidos (email existente, pero
-	// contraseña incorrecta)
-	@Test
-	public void testP08() {
-		driver.get("http://localhost:8081/login");
-		waitForWeb();
-		driver.findElement(By.name("email")).click();
-		driver.findElement(By.name("email")).clear();
-		driver.findElement(By.name("email")).sendKeys("user1@email.com");
-		driver.findElement(By.name("password")).click();
-		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("abcde");
-		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
-		waitForWeb();
-		// El usuario sigue en la página de login
-		// Se muestra el error
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Email o password incorrecto')]"));
-		assertTrue(list.size() > 0);
-	}
-
+	
 	// [Prueba7] Inicio de sesión con datos inválidos (email no existente en la
 	// aplicación)
 	@Test
-	public void testP09() {
+	public void testP07() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -421,39 +397,15 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 	}
 
-	@Test
-	public void testP10() {
-		driver.get("http://localhost:8081/login");
-		waitForWeb();
-		driver.findElement(By.name("email")).click();
-		driver.findElement(By.name("email")).clear();
-		driver.findElement(By.name("email")).sendKeys("user1@email.com");
-		driver.findElement(By.name("password")).click();
-		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("123456789");
-		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
-		waitForWeb();
-		// El usuario pasa a la página de inicio.
-		List<WebElement> list = driver
-				.findElements(By.xpath("//*[contains(text(),'Bienvenidos a la página principal')]"));
-		assertTrue(list.size() > 0);
-
-		// Usuario se deconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
-		waitForWeb();
-		// El usuario regresa a la pagina de login
-		list = driver.findElements(By.xpath("//*[contains(text(),'Identificación de usuario')]"));
-		assertTrue(list.size() > 0);
-
-	}
+	
 
 	// [Prueba8] Hacer click en la opción de salir de sesión y comprobar que se
 	// redirige a la página de inicio de
 	// sesión (Login).
-	// Prueba9] Comprobar que el botón cerrar sesión no está visible si el usuario
+	// [Prueba9] Comprobar que el botón cerrar sesión no está visible si el usuario
 	// no está autenticado
 	@Test
-	public void testP11() {
+	public void testP0809() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -484,7 +436,7 @@ public class SdiEntrega21010Tests {
 	// los que existen en el
 	// sistema.
 	@Test
-	public void testP12() {
+	public void testP10() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -521,7 +473,7 @@ public class SdiEntrega21010Tests {
 	// comprobar que la lista se actualiza
 	// y dicho usuario desaparece.
 	@Test
-	public void testP13() {
+	public void testP11() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -565,7 +517,7 @@ public class SdiEntrega21010Tests {
 	// comprobar que la lista se actualiza
 	// y dicho usuario desaparece
 	@Test
-	public void testP14() {
+	public void testP12() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -608,7 +560,7 @@ public class SdiEntrega21010Tests {
 	// lista se actualiza y dichos
 //	usuarios desaparecen.
 	@Test
-	public void testP15() {
+	public void testP13() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -665,7 +617,7 @@ public class SdiEntrega21010Tests {
 	//[Prueba14] Ir al formulario de alta de oferta, rellenarla con datos válidos y pulsar el botón Submit.
 	//Comprobar que la oferta sale en el listado de ofertas de dicho usuario
 	@Test
-	public void testP16() {
+	public void testP14() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -708,7 +660,7 @@ public class SdiEntrega21010Tests {
 	//[Prueba15] Ir al formulario de alta de oferta, rellenarla con datos inválidos (campo título vacío) y pulsar
 	//el botón Submit. Comprobar que se muestra el mensaje de campo obligatorio.
 @Test
-	public void testP17() {
+	public void testP15() {
 	driver.get("http://localhost:8081/login");
 	waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -771,7 +723,7 @@ public class SdiEntrega21010Tests {
 //[Prueba16] Mostrar el listado de ofertas para dicho usuario y comprobar que se muestran todas los que
 //existen para este usuario. 
 	@Test
-	public void testP18() {
+	public void testP16() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -807,7 +759,7 @@ public class SdiEntrega21010Tests {
 //[Prueba17] Ir a la lista de ofertas, borrar la primera oferta de la lista, comprobar que la lista se actualiza y
 	//que la oferta desaparece.
 	@Test
-	public void testP19() {
+	public void testP17() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -849,7 +801,7 @@ public class SdiEntrega21010Tests {
 	//[Prueba18] Ir a la lista de ofertas, borrar la última oferta de la lista, comprobar que la lista se actualiza y
 	//que la oferta desaparece
 	@Test
-	public void testP20() {
+	public void testP18() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -889,7 +841,7 @@ public class SdiEntrega21010Tests {
 	//[Prueba19] Hacer una búsqueda con el campo vacío y comprobar que se muestra la página que
 	//corresponde con el listado de las ofertas existentes en el sistema
 	@Test
-	public void testP21() {
+	public void testP19() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -921,7 +873,7 @@ public class SdiEntrega21010Tests {
 	//[Prueba20] Hacer una búsqueda escribiendo en el campo un texto que no exista y comprobar que se
 	//muestra la página que corresponde, con la lista de ofertas vacía.
 	@Test
-	public void testP22() {
+	public void testP20() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -957,7 +909,7 @@ public class SdiEntrega21010Tests {
 	//un saldo positivo en el contador del comprobador. Y comprobar que el contador se actualiza
 	//correctamente en la vista del comprador.
 	@Test
-	public void testP23() {
+	public void testP2122() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -1005,7 +957,7 @@ public class SdiEntrega21010Tests {
 	//un saldo 0 en el contador del comprobador. Y comprobar que el contador se actualiza correctamente en
 	//la vista del comprador. 
 	@Test
-	public void testP24() {
+	public void testP23() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -1042,11 +994,11 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
-	//Prueba24] Sobre una búsqueda determinada (a elección de desarrollador), intentar comprar una oferta
+	//[Prueba24] Sobre una búsqueda determinada (a elección de desarrollador), intentar comprar una oferta
 //	que esté por encima de saldo disponible del comprador. Y comprobar que se muestra el mensaje de
 //	saldo no suficiente.
 	@Test
-	public void testP25() {
+	public void testP24() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -1091,7 +1043,7 @@ public class SdiEntrega21010Tests {
 //	[Prueba25] Ir a la opción de ofertas compradas del usuario y mostrar la lista. Comprobar que aparecen
 //	las ofertas que deben aparecer
 	@Test
-	public void testP26() {
+	public void testP25() {
 		driver.get("http://localhost:8081/login");
 		waitForWeb();
 		driver.findElement(By.name("email")).click();
@@ -1146,7 +1098,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 	
-	
+	//------------------PRUEBAS API-----------------------------
 	//[Prueba29] Inicio de sesión con datos válidos.
 	@Test
 	public void testP29() {
