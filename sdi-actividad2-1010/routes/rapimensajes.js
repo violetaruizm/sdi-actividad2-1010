@@ -127,48 +127,29 @@ module.exports = function (app, gestorBD) {
                 });
             } else {
                 let criterio;
-                let usuarioReceiver = req.body.usuarioReceiver;
+                let usuario1 = req.body.usuario1;
+                let usuario2 = req.body.usuario2;
                 //el usuario no es el dueño de la oferta
-                if (usuarioReceiver === null) {
-                    criterio = {
-                        $or: [
-                            {
-                                $and: [
-                                    {sender: usuario},
-                                    {receiver: oferta[0].owner},
-                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
-                                ]
-                            },
-                            {
-                                $and: [
-                                    {sender: oferta[0].owner},
-                                    {receiver: usuario},
-                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
-                                ]
-                            }
-                        ]
-                    }
-                } else {
-                    //el usuario es el dueño de la oferta
-                    criterio = {
-                        $or: [
-                            {
-                                $and: [
-                                    {sender: usuario},
-                                    {receiver: usuarioReceiver},
-                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
-                                ]
-                            },
-                            {
-                                $and: [
-                                    {sender: usuarioReceiver},
-                                    {receiver: usuario},
-                                    {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
-                                ]
-                            }
-                        ]
-                    }
+
+                criterio = {
+                    $or: [
+                        {
+                            $and: [
+                                {user1: usuario1},
+                                {user2: usuario2},
+                                {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
+                            ]
+                        },
+                        {
+                            $and: [
+                                {user1: usuario2},
+                                {user2: usuario1},
+                                {sale: gestorBD.mongo.ObjectID(req.params.idSale)}
+                            ]
+                        }
+                    ]
                 }
+
                 functionCallBack(criterio);
             }
         })
@@ -185,7 +166,24 @@ module.exports = function (app, gestorBD) {
                     });
 
                 } else {
-                    res.send(JSON.stringify(mensajes));
+                    let criterio1 = {
+                        idConver: mensajes[0]._id
+
+                    }
+                    console.log(mensajes[0]._id);
+                    gestorBD.obtenerMensajesConversacion(criterio1, function (mensajesConver) {
+                        if (mensajesConver === null || mensajesConver.length === 0) {
+                            res.status(204); // Unauthorized
+                            res.json({
+                                error: "No se encontraron los mensajes"
+                            });
+
+                        } else {
+                            res.send(JSON.stringify(mensajesConver));
+
+                        }
+                    })
+
                 }
             })
         });
