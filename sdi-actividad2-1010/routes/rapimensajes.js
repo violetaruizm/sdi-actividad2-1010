@@ -21,26 +21,98 @@ module.exports = function (app, gestorBD) {
                 } else {
                     let criterio = {
                         sale: gestorBD.mongo.ObjectID(req.body.idSale),
-                        receiver: req.body.receiver,
-                        sender: usuario,
-                        message: req.body.message,
+                        $or: [
+                            {
+                                $and: [
+                                    {user1: usuario},
+                                    {user2: ofertas[0].owner},
+                                    {sale: gestorBD.mongo.ObjectID(req.body.idSale)}
+                                ]
+                            },
+                            {
+                                $and: [
+                                    {user1: ofertas[0].owner},
+                                    {user2: usuario},
+                                    {sale: gestorBD.mongo.ObjectID(req.body.idSale)}
+                                ]
+                            }
+                        ],
+
                         valid: true,
-                        read: false,
-                        date: new Date()
+
                     };
-                    // si el recibidor es nulo es que el que está enviando el mensaje es
-                    // el propietario de la oferta
-                    gestorBD.enviarMensaje(criterio, function (id) {
-                        if (id === null) {
-                            res.status(204); // Unauthorized
-                            res.json({
-                                error: "No se pudo enviar el mensaje"
-                            });
+
+                    gestorBD.obtenerConversacion(criterio, function (conversacion) {
+                        if (conversacion == null || conversacion.length === 0) {
+                            var converNueva = {
+                                sale: gestorBD.mongo.ObjectID(req.body.idSale),
+                                user1: req.body.receiver,
+                                user2: usuario,
+                                valid: true
+                            }
+                            gestorBD.crearConversacion(converNueva, function (nuevaConversacion) {
+                                if (nuevaConversacion === null) {
+                                    res.status(204); // Unauthorized
+                                    res.json({
+                                        error: "No se pudo crear la conversación"
+                                    });
+
+                                } else {
+                                    var mensaje = {
+                                        sale: gestorBD.mongo.ObjectID(req.body.idSale),
+                                        receiver: req.body.receiver,
+                                        sender: usuario,
+                                        message: req.body.message,
+                                        valid: true,
+                                        read: false,
+                                        date: new Date(),
+                                        idConver: nuevaConversacion
+                                    }
+                                    gestorBD.enviarMensaje(mensaje, function (id) {
+                                        if (id === null) {
+                                            res.status(204); // Unauthorized
+                                            res.json({
+                                                error: "No se pudo enviar el mensaje"
+                                            });
+                                        } else {
+                                            res.status(200);
+                                            res.send(JSON.stringify(criterio));
+                                        }
+                                    });
+
+                                }
+                            })
+
+
                         } else {
-                            res.status(200);
-                            res.send(JSON.stringify(criterio));
+
+                            // si el recibidor es nulo es que el que está enviando el mensaje es
+                            // el propietario de la oferta
+                            var mensaje = {
+                                sale: gestorBD.mongo.ObjectID(req.body.idSale),
+                                receiver: req.body.receiver,
+                                sender: usuario,
+                                message: req.body.message,
+                                valid: true,
+                                read: false,
+                                date: new Date(),
+                                idConver: conversacion[0]._id
+                            }
+                            gestorBD.enviarMensaje(mensaje, function (id) {
+                                if (id === null) {
+                                    res.status(204); // Unauthorized
+                                    res.json({
+                                        error: "No se pudo enviar el mensaje"
+                                    });
+                                } else {
+                                    res.status(200);
+                                    res.send(JSON.stringify(criterio));
+                                }
+                            });
+
                         }
-                    });
+                    })
+
                 }
             });
     });
