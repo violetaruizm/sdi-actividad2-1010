@@ -37,7 +37,20 @@ public class SdiEntrega21010Tests {
 	@Before
 	public void setUp() {
 		// initdb();
-		driver.navigate().to(URL);
+		
+		driver.get("http://localhost:8081/login");
+		waitForWeb();
+		driver.findElement(By.name("email")).click();
+		driver.findElement(By.name("email")).clear();
+		driver.findElement(By.name("email")).sendKeys("admin@email.com");
+		driver.findElement(By.name("password")).click();
+		driver.findElement(By.name("password")).clear();
+		driver.findElement(By.name("password")).sendKeys("admin");
+		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
+		waitForWeb();
+		
+		driver.findElement(By.linkText("reset DB")).click();
+		waitForWeb();
 	}
 
 	/*
@@ -179,10 +192,10 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("surname")).sendKeys("UsuarioNuevo");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		driver.findElement(By.name("repassword")).click();
 		driver.findElement(By.name("repassword")).clear();
-		driver.findElement(By.name("repassword")).sendKeys("12345");
+		driver.findElement(By.name("repassword")).sendKeys("123456789");
 		driver.findElement(By.xpath("//*[contains(text(),'Registrarse')]")).click();
 		waitForWeb();
 
@@ -190,8 +203,7 @@ public class SdiEntrega21010Tests {
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'Nuevo usuario registrado')]"));
 		assertTrue(list.size() > 0);
 
-		// Usuario se deconecta
-		 driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
+		
 
 	}
 
@@ -530,7 +542,7 @@ public class SdiEntrega21010Tests {
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'user1@email.com')]"));
 		assertTrue(list.size() > 0);
 		// Lo eliminamos
-		driver.findElement(By.name("idsUser")).click();
+		driver.findElement(By.id("user1@email.com")).click();
 		waitForWeb();
 		// driver.findElement(By.xpath("(.//*[normalize-space(text()) and
 		// normalize-space(.)='User5'])[2]/following::input[2]")).click();
@@ -574,7 +586,7 @@ public class SdiEntrega21010Tests {
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'user5@email.com')]"));
 		assertTrue(list.size() > 0);
 		driver.findElement(
-				By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='User5'])[2]/following::input[1]"))
+				By.id("user5@email.com"))
 				.click();
 		waitForWeb();
 		driver.findElement(By.name("delete")).click();
@@ -622,13 +634,13 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 
 		// Eliminamos los tres usuarios
-		driver.findElement(By.name("idsUser")).click();
+		driver.findElement(By.id("user1@email.com")).click();
 		waitForWeb();
 
-		driver.findElement(By.xpath("//*[contains(text(),  'User2')][2]/following::input[1]")).click();
+		driver.findElement(By.id("user2@email.com")).click();
 		waitForWeb();
 
-		driver.findElement(By.xpath("//*[contains(text(),  'User3')][2]/following::input[1]")).click();
+		driver.findElement(By.id("user3@email.com")).click();
 		waitForWeb();
 
 		driver.findElement(By.name("delete")).click();
@@ -820,7 +832,7 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 
 		// La borramos
-		driver.findElement(By.xpath("//*[contains(text(),  '')][1]/following::input[1]")).click();
+		driver.findElement(By.id("Oferta 1a")).click();
 		waitForWeb();
 
 		// Comprobamos que ya no está
@@ -860,7 +872,7 @@ public class SdiEntrega21010Tests {
 		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 1c')]"));
 		assertTrue(list.size() > 0);
 
-		driver.findElement(By.xpath("//*[contains(text(),  'Disponible')][1]/following::input[1]")).click();
+		driver.findElement(By.id("Oferta 1c")).click();
 		waitForWeb();
 		// Comprobamos que ya no está
 		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 1c')]"));
@@ -870,7 +882,7 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
-		driver.findElement(By.xpath("//*[contains(text(),'Logout)]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
 	}
 
 	
@@ -892,7 +904,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.linkText("Buscar oferta")).click();
 
 		// Buscamos con el texto vacio
-		driver.findElement(By.name("search")).click();
+		driver.findElement(By.id("send")).click();
 		waitForWeb();
 
 		// Comprobamos que está la primera oferta de la página
@@ -923,11 +935,11 @@ public class SdiEntrega21010Tests {
 		//driver.findElement(By.linkText("Ofertas")).click();
 		driver.findElement(By.linkText("Buscar oferta")).click();
 
-		driver.findElement(By.name("searchText")).click();
-		driver.findElement(By.name("searchText")).clear();
+		driver.findElement(By.name("busqueda")).click();
+		driver.findElement(By.name("busqueda")).clear();
 		// Buscamos un texto que no existe
-		driver.findElement(By.name("searchText")).sendKeys("12345");
-		driver.findElement(By.name("search")).click();
+		driver.findElement(By.name("busqueda")).sendKeys("12345");
+		driver.findElement(By.id("send")).click();
 		waitForWeb();
 
 		// Comprobamos que no se muestra ninguna oferta
@@ -959,18 +971,18 @@ public class SdiEntrega21010Tests {
 		waitForWeb();
 
 		// Comprobamos la cantidad de dinero que tiene el usuario antes de la compra
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'80.95')]"));
+		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'100')]"));
 		assertTrue(list.size() > 0);
 		//driver.findElement(By.linkText("Ofertas")).click();
 		driver.findElement(By.linkText("Buscar oferta")).click();
 		waitForWeb();
 
-		driver.findElement(By.name("searchText")).click();
-		driver.findElement(By.name("searchText")).clear();
+		driver.findElement(By.name("busqueda")).click();
+		driver.findElement(By.name("busqueda")).clear();
 
 		// Buscamos la oferta 1c
-		driver.findElement(By.name("searchText")).sendKeys("1c");
-		driver.findElement(By.name("search")).click();
+		driver.findElement(By.name("busqueda")).sendKeys("1c");
+		driver.findElement(By.id("send")).click();
 		waitForWeb();
 
 		// La compramos
@@ -980,7 +992,7 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.xpath("//*[contains(text(),'Inicio')]")).click();
 		waitForWeb();
 		// Comprobamos que se ha actualizado su dinero
-		list = driver.findElements(By.xpath("//*[contains(text(),'30.950000000000003')]"));
+		list = driver.findElements(By.xpath("//*[contains(text(),'85')]"));
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
@@ -1001,29 +1013,29 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
 		waitForWeb();
 
 		// Comprobamos la cantidad de dinero que tiene el usuario antes de la compra
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'100.0')]"));
+		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'100')]"));
 		assertTrue(list.size() > 0);
 		//driver.findElement(By.linkText("Ofertas")).click();
 		driver.findElement(By.linkText("Buscar oferta")).click();
 		waitForWeb();
 		// Buscamos la oferta 2c
-		driver.findElement(By.name("searchText")).click();
-		driver.findElement(By.name("searchText")).clear();
-		driver.findElement(By.name("searchText")).sendKeys("2a");
-		driver.findElement(By.name("search")).click();
+		driver.findElement(By.name("busqueda")).click();
+		driver.findElement(By.name("busqueda")).clear();
+		driver.findElement(By.name("busqueda")).sendKeys("2c");
+		driver.findElement(By.id("send")).click();
 		waitForWeb();
 
-		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 2a')][1]/following::input[1]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 2c')][1]/following::input[1]")).click();
 		driver.findElement(By.linkText("Inicio")).click();
 		waitForWeb();
 		// Comprobamos que se ha actualizado su dinero
-		list = driver.findElements(By.xpath("//*[contains(text(),'0.0')]"));
+		list = driver.findElements(By.xpath("//*[contains(text(),'0')]"));
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
@@ -1042,34 +1054,34 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("email")).sendKeys("user3@email.com");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
 		waitForWeb();
 
 		// Comprobamos la cantidad de dinero que tiene el usuario antes de la compra
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'80.95')]"));
+		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'100')]"));
 		assertTrue(list.size() > 0);
 		//driver.findElement(By.linkText("Ofertas")).click();
 		driver.findElement(By.linkText("Buscar oferta")).click();
 
 		// Buscamos la oferta 2a
-		driver.findElement(By.name("searchText")).click();
-		driver.findElement(By.name("searchText")).clear();
-		driver.findElement(By.name("searchText")).sendKeys("2a");
-		driver.findElement(By.name("search")).click();
+		driver.findElement(By.name("busqueda")).click();
+		driver.findElement(By.name("busqueda")).clear();
+		driver.findElement(By.name("busqueda")).sendKeys("2b");
+		driver.findElement(By.id("send")).click();
 
 		// La compramos
-		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 2a')][1]/following::input[1]")).click();
+		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 2b')][1]/following::input[1]")).click();
 		waitForWeb();
 		// Comprobamos que sale el mensaje de que no se ha podido comprar la oferta
-		list = driver.findElements(By.xpath("//*[contains(text(),'La compra no pudo completarse')]"));
+		list = driver.findElements(By.xpath("//*[contains(text(),'No tienes suficiente dinero para adquirir esa oferta ')]"));
 		assertTrue(list.size() > 0);
 
 		// Comprobamos que la cantidad de dinero sigue siendo la misma
 		driver.findElement(By.linkText("Inicio")).click();
 		waitForWeb();
-		list = driver.findElements(By.xpath("//*[contains(text(),'80.95')]"));
+		list = driver.findElements(By.xpath("//*[contains(text(),'100')]"));
 		assertTrue(list.size() > 0);
 
 		// El usuario se desconecta
@@ -1087,10 +1099,34 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("email")).sendKeys("user1@email.com");
 		driver.findElement(By.name("password")).click();
 		driver.findElement(By.name("password")).clear();
-		driver.findElement(By.name("password")).sendKeys("12345");
+		driver.findElement(By.name("password")).sendKeys("123456789");
 		// El usuario se autentifica
 		driver.findElement(By.xpath("//*[contains(text(),'Aceptar')]")).click();
 		waitForWeb();
+		driver.findElement(By.linkText("Buscar oferta")).click();
+		waitForWeb();
+		
+		// Buscamos la oferta 2a
+				driver.findElement(By.name("busqueda")).click();
+				driver.findElement(By.name("busqueda")).clear();
+				driver.findElement(By.name("busqueda")).sendKeys("4a");
+				driver.findElement(By.id("send")).click();
+				
+				// La compramos
+				driver.findElement(By.xpath("//*[contains(text(),  'Oferta 4a')][1]/following::input[1]")).click();
+				waitForWeb();
+				
+				driver.findElement(By.linkText("Buscar oferta")).click();
+				waitForWeb();
+				// Buscamos la oferta 2a
+				driver.findElement(By.name("busqueda")).click();
+				driver.findElement(By.name("busqueda")).clear();
+				driver.findElement(By.name("busqueda")).sendKeys("5a");
+				driver.findElement(By.id("send")).click();
+
+				// La compramos
+				driver.findElement(By.xpath("//*[contains(text(),  'Oferta 5a')][1]/following::input[1]")).click();
+				waitForWeb();
 		//driver.findElement(By.linkText("Personal")).click();
 		driver.findElement(By.linkText("Ofertas compradas")).click();
 		waitForWeb();
@@ -1101,7 +1137,7 @@ public class SdiEntrega21010Tests {
 		assertTrue(list.size() > 0);
 
 		// Comprobamos que aparecen todas las ofertas
-		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 2c')]"));
+		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 4a')]"));
 		assertTrue(list.size() > 0);
 		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 5a')]"));
 		assertTrue(list.size() > 0);

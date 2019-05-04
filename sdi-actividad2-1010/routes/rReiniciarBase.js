@@ -92,6 +92,8 @@ module.exports = function (app, swig, gestorBD) {
                     }
                     j++;
                 });
+                listOffers[4].price=150;
+                listOffers[5].price=100;
                 gestorBD.insertDataTest(listOffers, 'ofertas', function (offers) {
                     if (offers == null || offers.length === 0) {
                         res.redirect("/login?mensaje=Error al crear las ofertas de prueba");

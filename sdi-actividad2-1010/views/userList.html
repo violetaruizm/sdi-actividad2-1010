@@ -22,14 +22,14 @@
                 <td>{{user.name}}</td>
                 <td>{{user.surname}}</td>
                 <td>
-                    <input type="checkbox" name="email" value="{{user.email}}"/>
+                    <input type="checkbox" name="email" value="{{user.email}}" id ="{{user.email}}" />
                 </td>
                 {% endif %}
                 </tr>
                 </tbody>
                 {% endfor %}
             </table>
-            <input type="submit" value="Eliminar"/>
+            <input type="submit" value="Eliminar" name="delete"/>
 
         </form>
     </div>

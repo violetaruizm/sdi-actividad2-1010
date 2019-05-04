@@ -176,6 +176,7 @@ module.exports = function (app, swig, gestorBD) {
 
                                 } else {
                                     app.get('logger').info('Comprar oferta:La oferta se compró correctamente');
+                                    req.session.usuario.money=nuevoCriterioComprador.money;
                                     res.redirect("/sale/bought" +
                                         "?mensaje=La oferta se compró correctamente");
 
