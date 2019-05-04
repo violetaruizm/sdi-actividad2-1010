@@ -6,6 +6,13 @@ let app = express();
 let rest = require('request');
 app.set('rest', rest);
 
+// Log
+let log4js = require('log4js');
+log4js.configure({
+    appenders: {sdi: {type: 'file', filename: 'logs/sdi.log'}},
+    categories: {default: {appenders: ['sdi'], level: 'trace'}}
+});
+let logger = log4js.getLogger('sdi');
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -131,6 +138,7 @@ app.set('port', 8081);
 app.set('db', 'mongodb://admin:admin@sdi-actividad2-1010-shard-00-00-2djmo.mongodb.net:27017,sdi-actividad2-1010-shard-00-01-2djmo.mongodb.net:27017,sdi-actividad2-1010-shard-00-02-2djmo.mongodb.net:27017/test?ssl=true&replicaSet=sdi-actividad2-1010-shard-0&authSource=admin&retryWrites=true');
 app.set('clave', 'abcdefg');
 app.set('crypto', crypto);
+app.set('logger', logger);
 //Rutas/controladores por lógica
 
 require("./routes/rusuarios.js")(app, swig, gestorBD); // (app,param1, param2, etc)

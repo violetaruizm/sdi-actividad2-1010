@@ -24,9 +24,47 @@
     </div>
 </div>
 <script>
+    var mensajes;
 
-    function cargarMensajes(){
+    function cargarConversacion() {
 
     }
+
+    function cargarMensajes() {
+// llamar a la api para cargar la convesacion class="float-left"
+
+        $.ajax({
+            url: URLbase + "/conversation/" + ofertaId,
+            type: "POST",
+            data: {
+                usuario1: owner
+            },
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                mensajes = respuesta;
+                console.log(mensajes)
+                actualizarTabla(mensajes);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarTabla(mensajesMostrar) {
+
+        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        for (let i = 0; i < mensajesMostrar.length; i++) {
+            $("#tablaCuerpo").append(
+                "<tr id=" + mensajesMostrar[i]._id + ">" +
+                "<td>" + mensajesMostrar[i].sender + " : " + mensajesMostrar[i].message + "</td>" +
+
+                "</tr>");
+
+        }
+    }
+
+    cargarMensajes();
 
 </script>

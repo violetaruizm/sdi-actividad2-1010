@@ -51,11 +51,11 @@ module.exports = function (app, swig, gestorBD) {
     function createData(res) {
         const listUsers = [];
         const limitUsers = 5;
-        const numOffersUser = 5;
+        const numOffersUser = 3;
         const numMessageUser = 2;
         for (let i = 1; i <= limitUsers; i++) {
             let password = app.get("crypto").createHmac('sha256',
-                app.get('clave')).update('user' + i).digest('hex');
+                app.get('clave')).update('123456789').digest('hex');
             let user = {
                 name: 'User' + i,
                 surname: 'User' + i,
@@ -75,13 +75,13 @@ module.exports = function (app, swig, gestorBD) {
                 listUsers.forEach(user => {
                     for (let i = 1; i <= numOffersUser; i++) {
                         let offer = {
-                            title: 'Oferta ' + i + ' del usuario ' + user.name,
-                            description: 'Descripcion de la oferta ' + i + ' del usuario ' + user.name,
+                            title: 'Oferta ' + i ,
+                            description:  'Oferta ' + i ,
                             price: i * 5,
                             owner: user.email,
-                            state: 'disponible',
+                            onsale: 'disponible',
                             buyer: 'none',
-                            fav: ''
+
                         };
                         listOffers.push(offer);
                     }

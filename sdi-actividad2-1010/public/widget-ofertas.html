@@ -37,9 +37,12 @@
         });
     }
 
-    function enviarMensaje(idOferta, owner) {
-        Cookies.set('idOferta', idOferta);
+    function enviarMensaje(ofertaId2, owner2) {
+        Cookies.set('ofertaId', ofertaId);
+        ofertaId = ofertaId2;
+        owner = owner2;
         Cookies.set('owner', owner);
+        window.history.pushState("", "", "/cliente.html?w=conversacion");
         $("#contenedor-principal").load("widget-conversacion.html");
         // $.ajax({
         //     url: URLbase + "/message/send",
@@ -56,6 +59,8 @@
         //         $("#contenedor-principal").load("widget-login.html");
         //     }
         // });
+
+
     }
 
     function actualizarTabla(ofertasMostrar) {
@@ -67,12 +72,11 @@
                 "<td>" + ofertasMostrar[i].title + "</td>" +
                 "<td>" + ofertasMostrar[i].description + "</td>" +
                 "<td>" + ofertasMostrar[i].price + "</td>" +
-                "<td>  <button class='btn' onclick='enviarMensaje(" + ofertasMostrar[i]._id + ", " + ofertasMostrar[i].owner + ")'>Enviar mensaje</button></td>" +
+                "<td>  <button class='btn' onclick=enviarMensaje('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].owner + "')>Enviar mensaje</button></td>" +
                 "</tr>");
 
         }
     }
-
 
 
     cargarOfertas();

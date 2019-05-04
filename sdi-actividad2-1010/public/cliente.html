@@ -39,9 +39,12 @@
 
 <script>
     let token;
+    let emailUser = '';
     let URLbase = "http://localhost:8081/api";
-    let email = '';
+    let owner = '';
+    let receiver = '';
     let ofertaId = '';
+    let conversacionId = '';
     $("#contenedor-principal").load("widget-login.html");
     if (Cookies.get('token') != null) {
         token = Cookies.get('token');
@@ -55,7 +58,6 @@
         }
         if(w === "propias"){
             $("#contenedor-principal").load("widget-propias.html");
-
         }
     }
 

@@ -20,7 +20,7 @@ module.exports = function (app, gestorBD) {
                     });
                 } else {
                     let criterio = {
-                        sale: gestorBD.mongo.ObjectID(req.body.idSale),
+
                         $or: [
                             {
                                 $and: [
@@ -128,7 +128,7 @@ module.exports = function (app, gestorBD) {
             } else {
                 let criterio;
                 let usuario1 = req.body.usuario1;
-                let usuario2 = req.body.usuario2;
+                let usuario2 = res.usuario;
                 //el usuario no es el dueño de la oferta
 
                 criterio = {
@@ -155,22 +155,23 @@ module.exports = function (app, gestorBD) {
         })
     }
 
+
     // ver la conversación para el usuario que no es dueño de la oferta
     app.post("/api/conversation/:idSale", function (req, res) {
         getMensajesConversacion(res, req, function (criterio) {
-            gestorBD.obtenerConversacion(criterio, function (mensajes) {
-                if (mensajes === null || mensajes.length === 0) {
-                    res.status(204); // Unauthorized
-                    res.json({
-                        error: "No se pudo abrir la conversación"
-                    });
+            gestorBD.obtenerConversacion(criterio, function (conversaciones) {
+                if (conversaciones === null || conversaciones.length === 0) {
+                    // res.status(204); // Unauthorized
+                    // res.json({
+                    //     error: "No se pudo abrir la conversación"
+                    // });
 
+                    res.send(JSON.stringify([]));
                 } else {
                     let criterio1 = {
-                        idConver: mensajes[0]._id
+                        idConver: conversaciones[0]._id
 
-                    }
-                    console.log(mensajes[0]._id);
+                    };
                     gestorBD.obtenerMensajesConversacion(criterio1, function (mensajesConver) {
                         if (mensajesConver === null || mensajesConver.length === 0) {
                             res.status(204); // Unauthorized
@@ -180,7 +181,6 @@ module.exports = function (app, gestorBD) {
 
                         } else {
                             res.send(JSON.stringify(mensajesConver));
-
                         }
                     })
 
@@ -217,25 +217,23 @@ module.exports = function (app, gestorBD) {
         })
 
 
+    });
 
-
-});
-
-app.get("/api/message/read/:id", function (req, res) {
-    let criterio = {
-        _id: gestorBD.mongo.ObjectID(req.params.id),
-    };
-    gestorBD.marcarMensajeLeido(criterio, function (mensajes) {
-        if (mensajes === null || mensajes.length === 0) {
-            res.status(500);
-            res.json({
-                error: "No se pudo marcar como leído el mensaje"
-            })
-        } else {
-            res.status(200);
-            res.send(JSON.stringify(mensajes));
-        }
-    })
-});
+    app.get("/api/message/read/:id", function (req, res) {
+        let criterio = {
+            _id: gestorBD.mongo.ObjectID(req.params.id),
+        };
+        gestorBD.marcarMensajeLeido(criterio, function (mensajes) {
+            if (mensajes === null || mensajes.length === 0) {
+                res.status(500);
+                res.json({
+                    error: "No se pudo marcar como leído el mensaje"
+                })
+            } else {
+                res.status(200);
+                res.send(JSON.stringify(mensajes));
+            }
+        })
+    });
 }
 ;
