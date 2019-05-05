@@ -45,25 +45,25 @@
     let receiver = '';
     let ofertaId = '';
     let conversacionId = '';
-    $("#contenedor-principal").load("widget-login.html");
     if (Cookies.get('token') != null) {
         token = Cookies.get('token');
         var url = new URL(window.location.href);
         var w = url.searchParams.get("w");
-        if (w === "login") {
-            $("#contenedor-principal").load("widget-login.html");
-        }
         if (w === "ofertas") {
             $("#contenedor-principal").load("widget-ofertas.html");
-        }
-        if(w === "conversaciones"){
+        } else if (w === "conversaciones") {
             $("#contenedor-principal").load("widget-conversacioness.html");
+        } else {
+            $("#contenedor-principal").load("widget-login.html");
         }
+    } else {
+        $("#contenedor-principal").load("widget-login.html");
     }
 
     function widgetOfertas() {
         $("#contenedor-principal").load("widget-ofertas.html");
     }
+
     function widgetConversacionesPropias() {
         $("#contenedor-principal").load("widget-conversaciones.html");
     }

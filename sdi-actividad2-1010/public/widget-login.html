@@ -30,19 +30,18 @@
                 email: $("#email").val(),
                 password: $("#password").val()
             },
-            emailUser: $("#email").val(),
             dataType: 'json',
             success: function (respuesta) {
                 emailUser = $("#email").val();
-                console.log(respuesta.token); // <- Prueba
                 token = respuesta.token;
                 Cookies.set('token', respuesta.token);
                 $("#contenedor-principal").load("widget-ofertas.html");
             },
-            error: function (error) {
+            error: function () {
                 Cookies.remove('token');
+                $("#showMessage").remove();
                 $("#widget-login")
-                    .prepend("<div class='alert alert-danger'>No se pudo iniciar sesión</div>");
+                    .prepend("<div class='alert alert-danger' id='showMessage'>No se pudo iniciar sesión</div>");
             }
         });
     });
