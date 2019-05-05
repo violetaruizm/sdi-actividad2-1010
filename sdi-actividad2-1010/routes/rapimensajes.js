@@ -45,7 +45,7 @@ module.exports = function (app, gestorBD) {
 
                     gestorBD.obtenerConversacion(criterio, function (conversacion) {
                         if (conversacion == null || conversacion.length === 0) {
-                            var converNueva = {
+                            let converNueva = {
                                 sale: gestorBD.mongo.ObjectID(req.body.idSale),
                                 user1: req.body.receiver,
                                 user2: usuario,
@@ -60,7 +60,7 @@ module.exports = function (app, gestorBD) {
                                     });
 
                                 } else {
-                                    var mensaje = {
+                                    let mensaje = {
                                         sale: gestorBD.mongo.ObjectID(req.body.idSale),
                                         receiver: req.body.receiver,
                                         sender: usuario,
@@ -92,7 +92,7 @@ module.exports = function (app, gestorBD) {
 
                             // si el recibidor es nulo es que el que está enviando el mensaje es
                             // el propietario de la oferta
-                            var mensaje = {
+                            let mensaje = {
                                 sale: gestorBD.mongo.ObjectID(req.body.idSale),
                                 receiver: req.body.receiver,
                                 sender: usuario,
@@ -199,10 +199,9 @@ module.exports = function (app, gestorBD) {
     });
 
     app.get("/api/conversation/delete/:idConversacion", function (req, res) {
-
-        var criterio = {
+        let criterio = {
             idConver: gestorBD.mongo.ObjectID(req.params.idConversacion)
-        }
+        };
         gestorBD.deleteMensajesConversacion(criterio, function (mensajes) {
             if (mensajes === null) {
                 res.status(204); // Unauthorized

@@ -18,7 +18,6 @@
 </div>
 <script>
     window.history.pushState("", "", "/cliente.html?w=ofertas");
-    var ofertas;
 
     function cargarOfertas() {
         $.ajax({
@@ -37,35 +36,7 @@
         });
     }
 
-    function enviarMensaje(ofertaId2, owner2) {
-        Cookies.set('ofertaId', ofertaId);
-        ofertaId = ofertaId2;
-        owner = owner2;
-        // Usar estas dos vatriables en el body de mandar mensaje, añadir el campo mensaje tambien
-        Cookies.set('owner', owner);
-        window.history.pushState("", "", "/cliente.html?w=conversacion");
-        $("#contenedor-principal").load("widget-conversacion.html");
-        // $.ajax({
-        //     url: URLbase + "/message/send",
-        //     type: "POST",
-        //     data: {},
-        //     dataType: 'json',
-        //     headers: {"token": token},
-        //     success: function () {
-        //         Cookies.set('idOferta', idOferta);
-        //         Cookies.set('owner', owner);
-        //         $("#contenedor-principal").load("widget-conversacion.html");
-        //     },
-        //     error: function (error) {
-        //         $("#contenedor-principal").load("widget-login.html");
-        //     }
-        // });
-
-
-    }
-
     function actualizarTabla(ofertasMostrar) {
-
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (let i = 0; i < ofertasMostrar.length; i++) {
             $("#tablaCuerpo").append(
@@ -73,14 +44,20 @@
                 "<td>" + ofertasMostrar[i].title + "</td>" +
                 "<td>" + ofertasMostrar[i].description + "</td>" +
                 "<td>" + ofertasMostrar[i].price + "</td>" +
-                "<td>  <button class='btn' id="+i+" onclick=enviarMensaje('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].owner + "')>Enviar mensaje</button></td>" +
+                "<td><button class='btn btn-primary' " +
+                "onclick=enviarMensaje('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].owner + "') " +
+                ">Enviar mensaje</button></td>" +
                 "</tr>");
 
         }
     }
 
+    function enviarMensaje(ofertaId, owner) {
+        Cookies.set('ofertaId', ofertaId);
+        Cookies.set('owner', owner);
+        // Usar estas dos vatriables en el body de mandar mensaje, añadir el campo mensaje tambien
+        $("#contenedor-principal").load("widget-conversacion.html");
+    }
 
     cargarOfertas();
-
-
 </script>

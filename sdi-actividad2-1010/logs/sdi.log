@@ -271,3 +271,42 @@
 [2019-05-05T11:58:35.497] [INFO] sdi - Usuario admin creado
 [2019-05-05T12:01:15.226] [INFO] sdi - Admin ha reseteado la base de datos
 [2019-05-05T12:01:16.191] [INFO] sdi - Usuario admin creado
+[2019-05-05T16:05:32.720] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:05:52.828] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T16:05:59.366] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T16:05:59.373] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T16:06:02.961] [INFO] sdi - Admin ha reseteado la base de datos
+[2019-05-05T16:06:04.192] [INFO] sdi - Usuario admin creado
+[2019-05-05T16:06:06.900] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T16:06:10.212] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:06:52.451] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:07:17.580] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:07:19.134] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:07:46.131] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:07:47.362] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:07:49.566] [ERROR] sdi - API autenticación: El usuario no pudo autenticarse
+[2019-05-05T16:08:13.405] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T16:08:15.152] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:13:28.232] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:15:32.023] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:16:10.420] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:16:29.587] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:16:52.617] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:17:24.203] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T16:17:24.754] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:18:55.537] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T16:18:56.139] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:19:36.525] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:20:27.014] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:20:34.763] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:23:23.243] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:23:41.232] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:23:43.033] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:23:45.407] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T16:25:22.441] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T16:27:01.730] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T16:27:52.360] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T16:27:56.802] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T16:27:57.375] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T16:28:00.734] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T16:28:05.327] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 

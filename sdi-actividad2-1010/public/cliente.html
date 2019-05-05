@@ -27,7 +27,7 @@
                 <li><a onclick=widgetConversacionesPropias()>Mis conversaciones</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="barra-menu-derecha">
-                <!-- Opciones de menú aqui -->
+                <li><a onclick=desconectarse()>Desconectarse</a></li>
             </ul>
         </div>
     </div>
@@ -45,14 +45,19 @@
     let receiver = '';
     let ofertaId = '';
     let conversacionId = '';
+    let ofertas;
+    var mensajes;
+
     if (Cookies.get('token') != null) {
         token = Cookies.get('token');
         var url = new URL(window.location.href);
         var w = url.searchParams.get("w");
         if (w === "ofertas") {
             $("#contenedor-principal").load("widget-ofertas.html");
+        } else if (w === "conversacion") {
+            $("#contenedor-principal").load("widget-conversacion.html");
         } else if (w === "conversaciones") {
-            $("#contenedor-principal").load("widget-conversacioness.html");
+            $("#contenedor-principal").load("widget-conversaciones.html");
         } else {
             $("#contenedor-principal").load("widget-login.html");
         }
@@ -66,6 +71,11 @@
 
     function widgetConversacionesPropias() {
         $("#contenedor-principal").load("widget-conversaciones.html");
+    }
+
+    function desconectarse() {
+        Cookies.remove('token')
+        $("#contenedor-principal").load("widget-login.html");
     }
 </script>
 
