@@ -102,6 +102,26 @@ module.exports = {
             }
         });
     },
+    deleteOfertas: function (criterio, nuevoCriterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('ofertas');
+                collection.updateMany(criterio, {
+                    $set: nuevoCriterio
+
+                }, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
 
 
     insertarOferta: function (oferta, funcionCallback) {

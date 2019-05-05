@@ -430,6 +430,8 @@ public class SdiEntrega21010Tests {
 		// La opción de desconectarse vuelve a no aparecer para el usuario
 		list = driver.findElements(By.xpath("//*[contains(text(),'Logout')]"));
 		assertTrue(list.size() == 0);
+		list = driver.findElements(By.xpath("//*[contains(text(),'Identificación de usuario')]"));
+		assertTrue(list.size() > 0);
 	}
 
 	// [Prueba10] Mostrar el listado de usuarios y comprobar que se muestran todos
@@ -895,7 +897,7 @@ public class SdiEntrega21010Tests {
 		waitForWeb();
 
 		// Comprobamos que no se muestra ninguna oferta
-		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'123456789')]"));
+		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'12345')]"));
 		assertTrue(list.size() == 0);
 
 		// El usuario se desconecta
@@ -936,6 +938,8 @@ public class SdiEntrega21010Tests {
 		driver.findElement(By.name("busqueda")).sendKeys("1c");
 		driver.findElement(By.id("send")).click();
 		waitForWeb();
+		list = driver.findElements(By.xpath("//*[contains(text(),'Oferta 1c')]"));
+		assertTrue(list.size() > 0);
 
 		// La compramos
 		driver.findElement(By.xpath("//*[contains(text(),  'Oferta 1c')][1]/following::input[1]")).click();

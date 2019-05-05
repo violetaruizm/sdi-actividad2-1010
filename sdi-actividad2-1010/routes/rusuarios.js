@@ -144,12 +144,15 @@ module.exports = function (app, swig, gestorBD) {
 
     app.post("/user/delete", function (req, res) {
         let criterio;
+        let criterioOfertas;
 
         if (typeof (req.body.email) == "object") {
             criterio = {email: {$in: req.body.email}};
+            criterioOfertas = {owner: {$in: req.body.email}};
         }
         if (typeof (req.body.email) == "string") {
             criterio = {email: req.body.email};
+            criterioOfertas = {owner: req.body.email};
         }
         let nuevoCriterio = {valid: false};
         console.log(req.body.email);
@@ -162,9 +165,17 @@ module.exports = function (app, swig, gestorBD) {
                     res.redirect("/user/list" +
                         "?mensaje=Los usuarios no pudieron eliminarse");
                 } else {
-                    app.get('logger').info('Borrado usuarios: Los usuarios se eliminaron correctamente');
-                    res.redirect("/user/list" +
-                        "?mensaje=Los usuarios se eliminaron correctamente");
+                    gestorBD.deleteOfertas(criterioOfertas, nuevoCriterio, function (ofertas) {
+                        if (ofertas === null) {
+                            app.get('logger').error('Borrado usuario: Las ofertas del usuario no pudieron borrarse');
+                            res.redirect("/user/list" +
+                                "?mensaje= Las ofertas del usuario no pudieron borrarse");
+                        } else {
+                            app.get('logger').info('Borrado usuarios: Los usuarios se eliminaron correctamente');
+                            res.redirect("/user/list" +
+                                "?mensaje=Los usuarios se eliminaron correctamente");
+                        }
+                    })
                 }
             });
         } else {

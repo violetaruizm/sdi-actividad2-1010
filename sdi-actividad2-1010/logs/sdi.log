@@ -315,3 +315,78 @@
 [2019-05-05T16:29:09.322] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
 [2019-05-05T16:29:16.238] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
 [2019-05-05T16:29:17.973] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:53:02.311] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T19:53:20.765] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T19:53:21.312] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:53:29.281] [INFO] sdi - API mis conversaciones: Se obtuvieron todas mis conversaciones
+[2019-05-05T19:53:33.131] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:53:35.099] [INFO] sdi - API mis conversaciones: Se obtuvieron todas mis conversaciones
+[2019-05-05T19:53:39.840] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:53:43.922] [INFO] sdi - API mis conversaciones: Se obtuvieron todas mis conversaciones
+[2019-05-05T19:53:46.881] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:53:53.479] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
+[2019-05-05T19:53:54.991] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:54:08.197] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
+[2019-05-05T19:54:09.616] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:54:10.914] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:54:15.751] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:54:21.945] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:54:25.914] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:54:28.805] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:54:32.999] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:54:36.476] [INFO] sdi - API mis conversaciones: Se obtuvieron todas mis conversaciones
+[2019-05-05T19:54:47.512] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:54:53.196] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
+[2019-05-05T19:54:54.671] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:57:26.863] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
+[2019-05-05T19:57:28.595] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:57:29.023] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:57:31.846] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:57:37.450] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
+[2019-05-05T19:57:39.039] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T19:59:47.092] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T19:59:47.603] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T19:59:58.962] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T20:00:10.357] [INFO] sdi - API mis conversaciones: Se obtuvieron todas mis conversaciones
+[2019-05-05T20:00:18.310] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T20:00:33.277] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:00:46.949] [INFO] sdi - Sign up:se va a mostrar la página de registro
+[2019-05-05T20:00:57.429] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:01:03.462] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:01:03.504] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:01:14.100] [INFO] sdi - Listado de usuarios: se va a mostrar el listado de usuarios
+[2019-05-05T20:01:27.153] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T20:01:33.417] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T20:01:33.433] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:01:54.263] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T20:02:03.608] [INFO] sdi - Ofertas propias:Se van a mostrar las ofertas
+[2019-05-05T20:02:13.445] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T20:02:18.501] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda
+[2019-05-05T20:17:29.213] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:17:37.966] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:17:38.595] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:17:44.665] [INFO] sdi - Admin ha reseteado la base de datos
+[2019-05-05T20:17:45.657] [INFO] sdi - Usuario admin creado
+[2019-05-05T20:17:47.704] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:17:52.940] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:17:59.354] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T20:17:59.367] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:18:05.177] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T20:18:11.252] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda
+[2019-05-05T20:18:18.020] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T20:18:18.501] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T20:18:23.723] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:18:28.870] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T20:28:10.660] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:28:17.722] [ERROR] sdi - Log in: email o password incorrectos
+[2019-05-05T20:28:17.760] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:28:23.893] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:28:23.918] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:28:26.010] [INFO] sdi - Listado de usuarios: se va a mostrar el listado de usuarios
+[2019-05-05T20:28:30.585] [INFO] sdi - Borrado usuarios: Los usuarios se eliminaron correctamente
+[2019-05-05T20:28:31.059] [INFO] sdi - Listado de usuarios: se va a mostrar el listado de usuarios
+[2019-05-05T20:28:33.571] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T20:28:40.002] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T20:28:40.019] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:28:42.306] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T20:28:46.779] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
