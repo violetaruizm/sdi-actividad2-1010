@@ -1180,6 +1180,110 @@ public class SdiEntrega21010Tests {
 	    
 	}
 	
+	@Test
+	public void testP32() {
+		 driver.get("http://localhost:8081/cliente.html?w=login");
+		 waitForWeb();
+		    driver.findElement(By.id("email")).click();
+		    driver.findElement(By.id("email")).clear();
+		    driver.findElement(By.id("email")).sendKeys("user1@email.com");
+		    driver.findElement(By.id("password")).clear();
+		    driver.findElement(By.id("password")).sendKeys("123456789");
+		    driver.findElement(By.id("boton-login")).click();
+		    waitForWeb();
+		    
+		    //Comprobamos que no están las ofertas del usuario
+		    List<WebElement> list = driver
+					.findElements(By.xpath("//*[contains(text(),'Oferta 1a')]"));
+			assertTrue(list.size() == 0);
+			list = driver
+					.findElements(By.xpath("//*[contains(text(),'Oferta 1b')]"));
+			assertTrue(list.size() == 0);
+			list = driver
+					.findElements(By.xpath("//*[contains(text(),'Oferta 1c')]"));
+			assertTrue(list.size() == 0);
+			
+			//Comprobamos que se muestran las ofertas de otros usuarios
+			for(int i = 2;i<6;i++) {
+			list = driver
+					.findElements(By.xpath("//*[contains(text(),'Oferta "+i+"a')]"));
+			assertTrue(list.size() > 0);
+			list = driver
+					.findElements(By.xpath("//*[contains(text(),'Oferta "+i+"b')]"));
+			assertTrue(list.size() > 0);
+			list = driver
+					.findElements(By.xpath("//*[contains(text(),'Oferta "+i+"c')]"));
+			assertTrue(list.size() > 0);}
+		    
+	}
+	
+	@Test
+	public void testP33() {
+		  driver.get("http://localhost:8081/cliente.html?w=login");
+		  waitForWeb();
+		    driver.findElement(By.id("email")).click();
+		    driver.findElement(By.id("email")).clear();
+		    driver.findElement(By.id("email")).sendKeys("user1@email.com");
+		    driver.findElement(By.id("password")).clear();
+		    driver.findElement(By.id("password")).sendKeys("123456789");
+		    driver.findElement(By.id("boton-login")).click();
+		    waitForWeb();
+		  //*[contains(text(),  'Oferta 4c')][1]/following::button[1]
+		    driver.findElement(By.id("8")).click();
+		    waitForWeb();
+		    //Comprobamos que estamos dentro del chat
+		    List<WebElement> list = driver
+					.findElements(By.xpath("//*[contains(text(),'Mensajes con oferta')]"));
+			assertTrue(list.size() > 0);
+			//Comprobamos que el mensaje no aparace
+			list = driver
+					.findElements(By.xpath("//*[contains(text(),'hola me gustaria adquirir esta oferta')]"));
+			assertTrue(list.size() == 0);
+			
+		    driver.findElement(By.id("agregar-mensaje")).click();
+		    driver.findElement(By.id("agregar-mensaje")).clear();
+		    driver.findElement(By.id("agregar-mensaje")).sendKeys("hola me gustaria adquirir esta oferta");
+		    driver.findElement(By.id("boton-enviar")).click();
+		    waitForWeb();
+		   //comprobamos que el mensaje ahora si aparece
+		    list = driver.findElements(By.xpath("//*[contains(text(),'user1@email.com : hola me gustaria adquirir esta oferta')]"));
+			assertTrue(list.size() > 0);
+	}
+	
+	
+	@Test
+	public void testP34() {
+		 driver.get("http://localhost:8081/cliente.html?w=login");
+		 waitForWeb();
+		    driver.findElement(By.id("email")).click();
+		    driver.findElement(By.id("email")).clear();
+		    driver.findElement(By.id("email")).sendKeys("user1@email.com");
+		    driver.findElement(By.id("password")).clear();
+		    driver.findElement(By.id("password")).sendKeys("123456789");
+		    driver.findElement(By.id("boton-login")).click();
+		    waitForWeb();
+		    driver.findElement(By.linkText("Mis conversaciones")).click();
+		    waitForWeb();
+		    driver.findElement(By.id("7")).click();
+		    waitForWeb();
+		    //Comprobamos que estamos dentro del chat
+		    List<WebElement> list = driver
+					.findElements(By.xpath("//*[contains(text(),'Mensajes con oferta')]"));
+			assertTrue(list.size() > 0);
+		  //Comprobamos que el mensaje no aparace
+		    list = driver
+					.findElements(By.xpath("//*[contains(text(),'hola me gustaria adquirir esta oferta')]"));
+			assertTrue(list.size() == 0);
+		    driver.findElement(By.id("agregar-mensaje")).click();
+		    driver.findElement(By.id("agregar-mensaje")).clear();
+		    driver.findElement(By.id("agregar-mensaje")).sendKeys("hola me gustaria adquirir esta oferta");
+		    driver.findElement(By.id("boton-enviar")).click();
+		    waitForWeb();
+		    //comprobamos que el mensaje ahora si aparece
+		    list = driver.findElements(By.xpath("//*[contains(text(),'user1@email.com : hola me gustaria adquirir esta oferta')]"));
+			assertTrue(list.size() > 0);
+	}
+	
 
 
 

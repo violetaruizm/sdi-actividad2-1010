@@ -100,7 +100,7 @@
                 "<td>" + conversacionesMostrar[i].sale + "</td>" +
                 "<td>" + conversacionesMostrar[i].user1 + "</td>" +
                 "<td>" + conversacionesMostrar[i].user2 + "</td>" +
-                "<td>  <button class='btn' onclick=enviarMensaje('" + conversacionesMostrar[i].sale + "','" + receiver+ "')>Abrir</button></td>"  +
+                "<td>  <button class='btn' id="+i+" onclick=enviarMensaje('" + conversacionesMostrar[i].sale + "','" + receiver+ "')>Abrir</button></td>"  +
                 "</tr>");
 
         }
