@@ -447,3 +447,15 @@
 [2019-05-05T20:50:32.644] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
 [2019-05-05T20:50:35.302] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
 [2019-05-05T20:50:36.933] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T21:14:35.813] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T21:14:43.132] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T21:14:43.175] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T21:14:46.866] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:14:49.365] [INFO] sdi - Ofertas propias:Se van a mostrar las ofertas
+[2019-05-05T21:14:51.280] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:14:53.602] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T21:18:33.270] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T21:18:33.324] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T21:18:35.828] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:18:40.851] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda
+[2019-05-05T21:18:46.120] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda

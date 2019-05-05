@@ -2,7 +2,10 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/sale/new", function (req, res) {
 
-        var respuesta = swig.renderFile('views/newSale.html', { dineroUsuario:req.session.usuario.money});
+        let respuesta = swig.renderFile('views/newSale.html', {
+            dineroUsuario: req.session.usuario.money,
+            userEmail: req.session.usuario.email,
+        });
         res.send(respuesta);
     });
 
@@ -32,15 +35,15 @@ module.exports = function (app, swig, gestorBD) {
             res.redirect("/sale/new?mensaje=Introduzca un precio correcto");
         }
 
-        var price = parseInt(req.body.price);
+        let price = parseInt(req.body.price);
 
         if (price <= 0) {
             app.get('logger').error('Nueva oferta:El precio debe ser mayor que 0€');
             res.redirect("/sale/new?mensaje=El precio debe ser mayor que 0€");
         }
-        var datePost = new Date();
+        let datePost = new Date();
 
-        var oferta = {
+        let oferta = {
             title: req.body.title,
             description: req.body.description,
             price: price,
@@ -66,11 +69,15 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/sale/own", function (req, res) {
 
-        var criterio = {owner: req.session.usuario.email};
+        let criterio = {owner: req.session.usuario.email};
         gestorBD.obtenerOfertas
         (criterio, function (ofertas) {
             console.log(ofertas)
-            var respuesta = swig.renderFile('views/postedSales.html', {salesList: ofertas, dineroUsuario:req.session.usuario.money});
+            let respuesta = swig.renderFile('views/postedSales.html', {
+                salesList: ofertas,
+                dineroUsuario: req.session.usuario.money,
+                userEmail: req.session.usuario.email,
+            });
             app.get('logger').info('Ofertas propias:Se van a mostrar las ofertas');
             res.send(respuesta);
         });
@@ -80,8 +87,8 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get("/sale/delete/:id", function (req, res) {
 
-        var criterioNuevo = {valid: false};
-        var criterio = {_id: gestorBD.mongo.ObjectID(req.params.id)};
+        let criterioNuevo = {valid: false};
+        let criterio = {_id: gestorBD.mongo.ObjectID(req.params.id)};
 
         gestorBD.deleteSale(criterio, criterioNuevo, function (ofertas) {
 
@@ -102,14 +109,18 @@ module.exports = function (app, swig, gestorBD) {
     app.get("/sale/bought", function (req, res) {
 
 
-        var criterio = {
+        let criterio = {
             buyer: req.session.usuario.email,
             valid: true
         };
         gestorBD.obtenerOfertas
         (criterio, function (ofertas) {
             console.log(ofertas)
-            var respuesta = swig.renderFile('views/boughtSales.html', {salesList: ofertas, dineroUsuario:req.session.usuario.money});
+            let respuesta = swig.renderFile('views/boughtSales.html', {
+                salesList: ofertas,
+                dineroUsuario: req.session.usuario.money,
+                userEmail: req.session.usuario.email,
+            });
             app.get('logger').info('Comprar oferta:La oferta se compró correctamente');
             res.send(respuesta);
         });
@@ -125,10 +136,10 @@ module.exports = function (app, swig, gestorBD) {
                 $ne: req.session.usuario.email
             }
         }, function (ofertas) {
-            var respuesta = swig.renderFile('views/allSales.html', {
+            let respuesta = swig.renderFile('views/allSales.html', {
                 salesList: ofertas,
                 userEmail: req.session.usuario.email,
-                dineroUsuario:req.session.usuario.money
+                dineroUsuario: req.session.usuario.money
             });
             app.get('logger').info('Todas las ofertas:se van a mostrar todas las ofertas');
             res.send(respuesta);
@@ -140,7 +151,7 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/sale/buy/:id", function (req, res) {
-        var criterio = {_id: gestorBD.mongo.ObjectID(req.params.id)};
+        let criterio = {_id: gestorBD.mongo.ObjectID(req.params.id)};
         gestorBD.obtenerOfertas
         (criterio, function (ofertas) {
             if (ofertas == null || ofertas.length == 0) {
@@ -149,14 +160,14 @@ module.exports = function (app, swig, gestorBD) {
             } else {
 
                 if (ofertas[0].price <= req.session.usuario.money) {
-                    var nuevoCriterio = {
+                    let nuevoCriterio = {
                         onsale: false,
                         buyer: req.session.usuario.email
                     };
-                    var criterioComprador = {
+                    let criterioComprador = {
                         email: req.session.usuario.email
                     };
-                    var nuevoCriterioComprador = {
+                    let nuevoCriterioComprador = {
                         money: req.session.usuario.money - ofertas[0].price
                     };
 
@@ -177,7 +188,7 @@ module.exports = function (app, swig, gestorBD) {
 
                                 } else {
                                     app.get('logger').info('Comprar oferta:La oferta se compró correctamente');
-                                    req.session.usuario.money=nuevoCriterioComprador.money;
+                                    req.session.usuario.money = nuevoCriterioComprador.money;
                                     res.redirect("/sale/bought" +
                                         "?mensaje=La oferta se compró correctamente");
 
@@ -200,7 +211,7 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/sale/search", function (req, res) {
-        var criterio = {
+        let criterio = {
             valid: true,
             onsale: true,
             owner: {
@@ -211,11 +222,7 @@ module.exports = function (app, swig, gestorBD) {
             criterio = {
                 $and: [{
                     $or: [
-                        {
-                            description: {
-                                $regex: ".*" + req.query.busqueda + ".*", $options: 'i'
-                            }
-                        },
+                      
                         {
                             title: {
                                 $regex: ".*" + req.query.busqueda + ".*", $options: 'i'
@@ -230,7 +237,7 @@ module.exports = function (app, swig, gestorBD) {
                 }]
             };
         }
-        var pg = parseInt(req.query.pg); // Es String !!!
+        let pg = parseInt(req.query.pg); // Es String !!!
         if (req.query.pg == null) { // Puede no venir el param
             pg = 1;
         }
@@ -251,7 +258,7 @@ module.exports = function (app, swig, gestorBD) {
                     }
                 }
                 console.log(total);
-                var respuesta = swig.renderFile('views/pagination.html',
+                let respuesta = swig.renderFile('views/pagination.html',
                     {
 
                         busqueda: req.query.busqueda,
@@ -260,7 +267,7 @@ module.exports = function (app, swig, gestorBD) {
                         paginas: paginas,
                         ultimaPg: ultimaPg,
                         actual: pg,
-                        dineroUsuario:req.session.usuario.money
+                        dineroUsuario: req.session.usuario.money
                     });
                 app.get('logger').info('Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda');
                 res.send(respuesta);

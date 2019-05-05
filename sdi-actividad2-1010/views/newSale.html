@@ -1,7 +1,7 @@
 {% extends "navUserLogged.html" %}
 {% block main %}
 
-<p>Tu saldo actual: {{dineroUsuario}}€</p>
+<p>Tu saldo actual: {{dineroUsuario}}€ - {{userEmail}}</p>
 <h2>Nueva oferta:</h2>
 <form class="form-horizontal" method="post" action="/sale/new">
 
