@@ -21,6 +21,9 @@
 </div>
 
 <script>
+    $("#navOfertas").hide();
+    $("#navConversaciones").hide();
+    $("#navDesconectarse").hide();
     window.history.pushState("", "", "/cliente.html?w=login");
     $("#boton-login").click(function () {
         $.ajax({

@@ -24,6 +24,9 @@
 </div>
 <script>
     window.history.pushState("", "", "/cliente.html?w=conversacion");
+    $("#navOfertas").show();
+    $("#navConversaciones").show();
+    $("#navDesconectarse").show();
 
     function cargarMensajes() {
         $.ajax({
