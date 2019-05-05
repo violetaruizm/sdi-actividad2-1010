@@ -47,8 +47,8 @@
                 "<td>" + ofertasMostrar[i].title + "</td>" +
                 "<td>" + ofertasMostrar[i].description + "</td>" +
                 "<td>" + ofertasMostrar[i].price + "</td>" +
-                "<td><button class='btn btn-primary' " +
-                "onclick=enviarMensaje('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].owner + "') " +
+                "<td><button class='btn btn-primary' id="+i +
+                " onclick=enviarMensaje('" + ofertasMostrar[i]._id + "','" + ofertasMostrar[i].owner + "') " +
                 ">Enviar mensaje</button></td>" +
                 "</tr>");
 

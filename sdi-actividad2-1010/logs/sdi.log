@@ -390,3 +390,60 @@
 [2019-05-05T20:28:40.019] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
 [2019-05-05T20:28:42.306] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
 [2019-05-05T20:28:46.779] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:29:44.204] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T20:29:50.607] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:29:50.652] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:29:52.837] [INFO] sdi - Listado de usuarios: se va a mostrar el listado de usuarios
+[2019-05-05T20:29:58.191] [INFO] sdi - Borrado usuarios: Los usuarios se eliminaron correctamente
+[2019-05-05T20:29:58.687] [INFO] sdi - Listado de usuarios: se va a mostrar el listado de usuarios
+[2019-05-05T20:30:00.789] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T20:30:06.569] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T20:30:06.586] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:30:09.031] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T20:31:00.164] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:31:09.219] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:31:09.436] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:31:15.467] [INFO] sdi - Admin ha reseteado la base de datos
+[2019-05-05T20:31:16.676] [INFO] sdi - Usuario admin creado
+[2019-05-05T20:31:19.124] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:31:24.272] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:31:30.853] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T20:31:30.866] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:31:36.646] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T20:31:42.955] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda
+[2019-05-05T20:31:49.677] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T20:31:50.172] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T20:31:50.401] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T20:31:55.639] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T20:32:51.866] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:33:00.187] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:33:00.354] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:33:06.557] [INFO] sdi - Admin ha reseteado la base de datos
+[2019-05-05T20:33:07.519] [INFO] sdi - Usuario admin creado
+[2019-05-05T20:33:09.848] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:33:15.047] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:33:21.983] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:33:21.996] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:33:27.918] [INFO] sdi - Listado de usuarios: se va a mostrar el listado de usuarios
+[2019-05-05T20:33:39.551] [INFO] sdi - Borrado usuarios: Los usuarios se eliminaron correctamente
+[2019-05-05T20:33:40.121] [INFO] sdi - Listado de usuarios: se va a mostrar el listado de usuarios
+[2019-05-05T20:33:45.411] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T20:47:49.556] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:47:57.639] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:47:57.710] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:48:03.789] [INFO] sdi - Admin ha reseteado la base de datos
+[2019-05-05T20:48:04.766] [INFO] sdi - Usuario admin creado
+[2019-05-05T20:48:07.121] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:48:19.275] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T20:48:19.882] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T20:49:50.898] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:50:00.531] [INFO] sdi - Log in: log in usuario admin correcto. Redirigiendo a página personal
+[2019-05-05T20:50:00.614] [INFO] sdi - Home Admin: se va a mostrar la página principal de un usuario admin
+[2019-05-05T20:50:08.569] [INFO] sdi - Admin ha reseteado la base de datos
+[2019-05-05T20:50:09.831] [INFO] sdi - Usuario admin creado
+[2019-05-05T20:50:12.220] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T20:50:23.196] [INFO] sdi - API autenticación: El usuario se autenticó correctamente
+[2019-05-05T20:50:23.945] [INFO] sdi - API ofertas: se obtuvieron correctamete todas las ofertas del sistema
+[2019-05-05T20:50:32.644] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
+[2019-05-05T20:50:35.302] [INFO] sdi - API enviar mensaje: se envio correctamente el mensaje
+[2019-05-05T20:50:36.933] [INFO] sdi - API obtener conversación: se obtuvo correctamente la conversación 
