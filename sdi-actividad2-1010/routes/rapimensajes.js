@@ -235,5 +235,22 @@ module.exports = function (app, gestorBD) {
             }
         })
     });
+
+    app.get("/api/conversations/own", function (req, res) {
+        console.log(res.usuario);
+        let criterio = {$or: [{user1: res.usuario}, {user2: res.usuario}]};
+            gestorBD.obtenerConversacion(criterio, function (conversaciones){
+                if(conversaciones===null || conversaciones.length===0){
+                    res.send(JSON.stringify([]));
+
+                }else{
+                    res.send(JSON.stringify(conversaciones));
+                }
+
+            }
+
+            )
+        }
+    )
 }
 ;

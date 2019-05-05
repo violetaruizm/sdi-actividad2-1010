@@ -33,6 +33,7 @@
             emailUser: $("#email").val(),
             dataType: 'json',
             success: function (respuesta) {
+                emailUser = $("#email").val();
                 console.log(respuesta.token); // <- Prueba
                 token = respuesta.token;
                 Cookies.set('token', respuesta.token);

@@ -1,0 +1,116 @@
+<div id="widget-ofertas">
+
+
+    <button class="btn" onclick="cargarOfertas()">Actualizar</button>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Oferta</th>
+            <th>Usuario 1 </th>
+            <th>Usuario 2 </th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody id="tablaCuerpo">
+
+        </tbody>
+    </table>
+</div>
+<script>
+    window.history.pushState("", "", "/cliente.html?w=conversaciones");
+    var ofertas;
+
+    function cargarOfertas() {
+        $.ajax({
+            url: URLbase + "/propias",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                ofertas = respuesta;
+                actualizarTabla(ofertas);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function enviarMensaje(ofertaId2, owner2) {
+        Cookies.set('ofertaId', ofertaId);
+        ofertaId = ofertaId2;
+        owner = owner2;
+        // Usar estas dos vatriables en el body de mandar mensaje, añadir el campo mensaje tambien
+        Cookies.set('owner', owner);
+        window.history.pushState("", "", "/cliente.html?w=conversacion");
+        $("#contenedor-principal").load("widget-conversacion.html");
+        // $.ajax({
+        //     url: URLbase + "/message/send",
+        //     type: "POST",
+        //     data: {},
+        //     dataType: 'json',
+        //     headers: {"token": token},
+        //     success: function () {
+        //         Cookies.set('idOferta', idOferta);
+        //         Cookies.set('owner', owner);
+        //         $("#contenedor-principal").load("widget-conversacion.html");
+        //     },
+        //     error: function (error) {
+        //         $("#contenedor-principal").load("widget-login.html");
+        //     }
+        // });
+
+
+    }
+
+
+    function cargarConversaciones() {
+// llamar a la api para cargar la convesacion class="float-left"
+
+        $.ajax({
+            url: URLbase + "/conversations/own",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                mensajes = respuesta;
+                console.log(mensajes)
+                actualizarTabla(mensajes);
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarTabla(conversacionesMostrar) {
+
+        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        for (let i = 0; i < conversacionesMostrar.length; i++) {
+            let receiver;
+            if(conversacionesMostrar[i].user1===emailUser){
+                receiver=conversacionesMostrar[i].user2;
+            }else{
+                receiver=conversacionesMostrar[i].user1;
+            }
+            $("#tablaCuerpo").append(
+                "<tr id=" + conversacionesMostrar[i]._id + ">" +
+                "<td>" + conversacionesMostrar[i].sale + "</td>" +
+                "<td>" + conversacionesMostrar[i].user1 + "</td>" +
+                "<td>" + conversacionesMostrar[i].user2 + "</td>" +
+                "<td>  <button class='btn' onclick=enviarMensaje('" + conversacionesMostrar[i].sale + "','" + receiver+ "')>Abrir</button></td>"  +
+                "</tr>");
+
+        }
+    }
+
+
+
+
+
+    cargarConversaciones();
+
+
+</script>
