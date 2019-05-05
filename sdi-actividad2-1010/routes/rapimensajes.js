@@ -15,6 +15,7 @@ module.exports = function (app, gestorBD) {
             function (ofertas) {
                 if (ofertas === null || ofertas.length === 0) {
                     res.status(204); // Unauthorized
+                    app.get('logger').error('API enviar mensaje: no se puede enviar un mensaje a esa oferta');
                     res.json({
                         error: "No puedes enviar un mensaje a esa oferta"
                     });
@@ -53,6 +54,7 @@ module.exports = function (app, gestorBD) {
                             gestorBD.crearConversacion(converNueva, function (nuevaConversacion) {
                                 if (nuevaConversacion === null) {
                                     res.status(204); // Unauthorized
+                                    app.get('logger').error('API enviar mensaje: no se pudo crear la conversación');
                                     res.json({
                                         error: "No se pudo crear la conversación"
                                     });
@@ -71,11 +73,13 @@ module.exports = function (app, gestorBD) {
                                     gestorBD.enviarMensaje(mensaje, function (id) {
                                         if (id === null) {
                                             res.status(204); // Unauthorized
+                                            app.get('logger').error('API enviar mensaje: no se pudo enviar el mensaje');
                                             res.json({
                                                 error: "No se pudo enviar el mensaje"
                                             });
                                         } else {
                                             res.status(200);
+                                            app.get('logger').info('API enviar mensaje: se envio correctamente el mensaje');
                                             res.send(JSON.stringify(mensaje));
                                         }
                                     });
@@ -101,11 +105,13 @@ module.exports = function (app, gestorBD) {
                             gestorBD.enviarMensaje(mensaje, function (id) {
                                 if (id === null) {
                                     res.status(204); // Unauthorized
+                                    app.get('logger').error('API enviar mensaje: no se pudo enviar el mensaje');
                                     res.json({
                                         error: "No se pudo enviar el mensaje"
                                     });
                                 } else {
                                     res.status(200);
+                                    app.get('logger').info('API enviar mensaje: se envio correctamente el mensaje');
                                     res.send(JSON.stringify(mensaje));
                                 }
                             });
@@ -122,6 +128,7 @@ module.exports = function (app, gestorBD) {
         getOferta(req.params.idSale, function (oferta) {
             if (oferta === null || oferta.length === 0) {
                 res.status(204); // Unauthorized
+                app.get('logger').error('API obtener conversación: la oferta no existe');
                 res.json({
                     error: "La oferta no existe"
                 });
@@ -165,7 +172,7 @@ module.exports = function (app, gestorBD) {
                     // res.json({
                     //     error: "No se pudo abrir la conversación"
                     // });
-
+                    app.get('logger').info('API obtener conversación: la conversación está vacía');
                     res.send(JSON.stringify([]));
                 } else {
                     let criterio1 = {
@@ -175,11 +182,13 @@ module.exports = function (app, gestorBD) {
                     gestorBD.obtenerMensajesConversacion(criterio1, function (mensajesConver) {
                         if (mensajesConver === null || mensajesConver.length === 0) {
                             res.status(204); // Unauthorized
+                            app.get('logger').error('API obtener conversación: No se encontraron los mensajes');
                             res.json({
                                 error: "No se encontraron los mensajes"
                             });
 
                         } else {
+                            app.get('logger').info('API obtener conversación: se obtuvo correctamente la conversación ');
                             res.send(JSON.stringify(mensajesConver));
                         }
                     })
@@ -197,6 +206,7 @@ module.exports = function (app, gestorBD) {
         gestorBD.deleteMensajesConversacion(criterio, function (mensajes) {
             if (mensajes === null) {
                 res.status(204); // Unauthorized
+                app.get('logger').error('API borrar conversación: No se pudieron eliminar los mensajes');
                 res.json({
                     error: "No se pudieron eliminar los mensajes"
                 });
@@ -206,10 +216,12 @@ module.exports = function (app, gestorBD) {
                     function (conversacion) {
                         if (mensajes === null) {
                             res.status(204); // Unauthorized
+                            app.get('logger').error('API borrar conversación: No se pudieron eliminar los mensajes');
                             res.json({
                                 error: "No se pudieron eliminar los mensajes"
                             })
                         } else {
+                            app.get('logger').error('API borrar conversación: La conversación se eliminó correctamente');
                             res.send(JSON.stringify(mensajes));
                         }
                     });
@@ -226,11 +238,13 @@ module.exports = function (app, gestorBD) {
         gestorBD.marcarMensajeLeido(criterio, function (mensajes) {
             if (mensajes === null || mensajes.length === 0) {
                 res.status(500);
+                app.get('logger').error('API marcar mensaje leído: no se pudo marcar como leído el mensaje');
                 res.json({
                     error: "No se pudo marcar como leído el mensaje"
                 })
             } else {
                 res.status(200);
+                app.get('logger').info('API marcar mensaje leído: el mensaje se marcó como leído');
                 res.send(JSON.stringify(mensajes));
             }
         })
@@ -241,9 +255,11 @@ module.exports = function (app, gestorBD) {
         let criterio = {$or: [{user1: res.usuario}, {user2: res.usuario}]};
             gestorBD.obtenerConversacion(criterio, function (conversaciones){
                 if(conversaciones===null || conversaciones.length===0){
+                    app.get('logger').info('API mis conversaciones: No tengo ninguna conversación abierta');
                     res.send(JSON.stringify([]));
 
                 }else{
+                    app.get('logger').info('API mis conversaciones: Se obtuvieron todas mis conversaciones');
                     res.send(JSON.stringify(conversaciones));
                 }
 

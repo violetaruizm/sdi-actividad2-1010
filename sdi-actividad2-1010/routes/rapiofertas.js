@@ -9,12 +9,14 @@ module.exports = function (app, gestorBD) {
             if (ofertas == null || ofertas.length === 0) {
 
                 res.status(204); // Unauthorized
+                app.get('logger').error('API ofertas: No se encontraron ofertas');
                 res.json({
                     err: "No hay ofertas disponibles"
                 });
             } else {
 
                 res.status(200);
+                app.get('logger').info('API ofertas: se obtuvieron correctamete todas las ofertas del sistema');
                 res.send(ofertas);
             }
         });
