@@ -459,3 +459,30 @@
 [2019-05-05T21:18:35.828] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
 [2019-05-05T21:18:40.851] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda
 [2019-05-05T21:18:46.120] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda
+[2019-05-05T21:19:58.894] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T21:20:16.702] [INFO] sdi - Log in: se va a mostrar la página de login
+[2019-05-05T21:20:25.810] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T21:20:25.826] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T21:20:35.051] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:20:40.776] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:20:41.968] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:20:43.282] [ERROR] sdi - Comprar oferta:No tienes suficiente dinero para adquirir esa oferta
+[2019-05-05T21:20:43.754] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:20:46.926] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:20:47.395] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:20:53.416] [INFO] sdi - Ofertas propias:Se van a mostrar las ofertas
+[2019-05-05T21:20:55.993] [INFO] sdi - LogOut: se ha finalizado la sesión del usuario. Redirigiendo a página de log in
+[2019-05-05T21:21:03.109] [INFO] sdi - Log in: log in usuario estándar correcto. Redirigiendo a página personal
+[2019-05-05T21:21:03.127] [INFO] sdi - Home: se va a mostrar la página principal de un usuario estándar
+[2019-05-05T21:21:05.005] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:21:07.205] [INFO] sdi - Ofertas propias:Se van a mostrar las ofertas
+[2019-05-05T21:21:08.578] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:21:13.074] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:21:13.557] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:21:15.305] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:21:18.806] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:21:19.263] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:21:21.129] [INFO] sdi - Comprar oferta:La oferta se compró correctamente
+[2019-05-05T21:21:33.585] [INFO] sdi - Ofertas propias:Se van a mostrar las ofertas
+[2019-05-05T21:21:41.185] [INFO] sdi - Todas las ofertas:se van a mostrar todas las ofertas
+[2019-05-05T21:21:48.976] [INFO] sdi - Buscar oferta:se van a mostrar las ofertas que coinciden con la búsqueda

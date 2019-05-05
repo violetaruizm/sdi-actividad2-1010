@@ -222,7 +222,7 @@ module.exports = function (app, swig, gestorBD) {
             criterio = {
                 $and: [{
                     $or: [
-                      
+
                         {
                             title: {
                                 $regex: ".*" + req.query.busqueda + ".*", $options: 'i'
